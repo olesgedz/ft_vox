@@ -1,8 +1,8 @@
 #pragma once
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-#include "render.h"
-#include "events.h"
+#include "Render.h"
+#include "Events.h"
 #include "skybox.h"
 #include "scene.h"
 

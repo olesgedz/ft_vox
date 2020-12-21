@@ -1,9 +1,8 @@
 #pragma once
 #include "Model.h"
-#include "Maths.h"
 #include <vector>
 #include "glm/glm.hpp"
-
+using namespace glm;
 class Entity
 {
 public:

@@ -1,7 +1,7 @@
 #include "skybox.h"
 #include "glad.h"
 #include "stb_image.h"
-#include "shader.h"
+#include "Shader.h"
 #include <iostream>
 #include <vector>
 
@@ -88,5 +88,5 @@ void Skybox::init(std::vector<std::string> faces)
 
 void Skybox::set_shader(const char* vPath, const char* fSPath)
 {
-    create_shader(&shader_id, vPath, fSPath);
+   // create_shader(&shader_id, vPath, fSPath);
 }

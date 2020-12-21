@@ -35,6 +35,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
  add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/glfw/)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/..)
 set(INCLUDES
+    src/VertexBuffer/
     include/
     libs/glad/include/glad/
         libs/glad/include/
@@ -42,14 +43,15 @@ set(INCLUDES
     libs/stb_image/
     libs/imgui/backends
     libs/imgui/
-    libs/glm/  src/)
+    libs/glm/  src/
+    src/Debug/)
 set(SOURCEFILES
     src/main.cpp
-    libs/glad/src/glad.c libs/stb_image/stb_image.h libs/stb_image/stb_image_helper.cpp src/camera.cpp src/maths.cpp
+    libs/glad/src/glad.c libs/stb_image/stb_image.h libs/stb_image/stb_image_helper.cpp src/camera.cpp
     libs/imgui/imgui.cpp libs/imgui/imgui_draw.cpp libs/imgui/imgui_widgets.cpp libs/imgui/backends/imgui_impl_opengl3.cpp libs/imgui/backends/imgui_impl_glfw.cpp
         libs/imgui/imgui_tables.cpp
     src/engine.cpp src/Entity.cpp src/Events.cpp src/Model.cpp src/Render.cpp src/Shader.cpp src/skybox.cpp src/sandbox.cpp src/scene.cpp
-        src/maths.cpp src/maths.h src/Animator.cpp src/Animator.h src/Animation.cpp src/Animation.h src/AnimationKey.cpp src/AnimationKey.h src/VertexBuffer/VertexBuffer.cpp src/VertexBuffer/VertexBuffer.h src/VertexBuffer/VertexArray.cpp src/VertexBuffer/VertexArray.h src/VertexBuffer/VertexBuffersLayout.cpp src/VertexBuffer/VertexBuffersLayout.h)
+    src/Animator.cpp src/Animator.h src/Animation.cpp src/Animation.h src/AnimationKey.cpp src/AnimationKey.h src/VertexBuffer/VertexBuffer.cpp src/VertexBuffer/VertexBuffer.h src/VertexBuffer/VertexArray.cpp src/VertexBuffer/VertexArray.h src/VertexBuffer/VertexBuffersLayout.cpp src/VertexBuffer/VertexBuffersLayout.h src/VertexBuffer/Vertex.cpp src/VertexBuffer/Vertex.h src/Mesh.cpp src/Mesh.h src/Debug/DebugGl.cpp src/Debug/DebugGl.h)
 include_directories(${INCLUDES})
 add_executable(${PROJECT_NAME} ${SOURCEFILES})
 link_directories(${INCLUDES}

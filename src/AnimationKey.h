@@ -5,7 +5,8 @@
 #ifndef HUMAGL_ANIMATIONKEY_H
 #define HUMAGL_ANIMATIONKEY_H
 
-#include "Maths.h"
+#include "glm/glm.hpp"
+using namespace glm;
 class AnimationKey
 {
 	public:

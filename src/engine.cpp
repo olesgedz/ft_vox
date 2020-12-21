@@ -9,13 +9,10 @@
 double Engine::delta_time = 0.0f;
 Engine::~Engine()
 {
-	int length = models.size();
-	for (int i = 0; i < length; ++i)
-	{
-		models[i]->vertices.clear();
-		models.clear();
-	}
-	length = scene.ents.size();
+	for(auto model : models)
+		model->meshes.clear();
+	models.clear();
+	int length = scene.ents.size();
 	for (int i = 0; i < length; ++i)
 		delete scene.ents[i];
 	std::cout << "Engine off" << std::endl;
@@ -51,15 +48,6 @@ void Engine::init_engine(int width, int height)
 	controls.yaw = cam.yaw;
 	controls.pitch = cam.pitch;
 	rend.init();
-	std::vector<std::string> faces;
-	faces.push_back("res/cubemaps/right.jpg");
-	faces.push_back("res/cubemaps/left.jpg");
-	faces.push_back("res/cubemaps/top.jpg");
-	faces.push_back("res/cubemaps/bottom.jpg");
-	faces.push_back("res/cubemaps/front.jpg");
-	faces.push_back("res/cubemaps/back.jpg");
-	skybox.init(faces);
-	skybox.set_shader("res/shaders/skybox_vert.glsl", "res/shaders/skybox_frag.glsl");
 
     IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -99,19 +87,22 @@ void Engine::run_engine()
         ImGui::NewFrame();
 
 		cam.speed = 8.0f * delta_time;
-		if (controls.keys[GLFW_KEY_W])
-			cam.pos = cam.pos + cam.speed * cam.front;
-		if (controls.keys[GLFW_KEY_S])
-			cam.pos = cam.pos - cam.speed * cam.front;
+
+
 		if (controls.keys[GLFW_KEY_A])
 			cam.pos = cam.pos - cam.speed * normalize(cross(cam.front, cam.up));
 		if (controls.keys[GLFW_KEY_D])
 			cam.pos = cam.pos + cam.speed * normalize(cross(cam.front, cam.up));
+		if (controls.keys[GLFW_KEY_W])
+			cam.pos = cam.pos + cam.speed * cam.front;
+		if (controls.keys[GLFW_KEY_S])
+			cam.pos = cam.pos - cam.speed * cam.front;
+
 		cam.yaw = controls.yaw;
 		cam.pitch = controls.pitch;
 
 		cam.update_free();
-		rend.draw_skybox(&skybox, &cam);
+//		rend.draw_skybox(&skybox, &cam);
 		rend.draw_scene(&animator, &scene, &cam);
 		//rend.draw_pbr(&scene, &cam);
 

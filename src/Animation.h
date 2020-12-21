@@ -8,7 +8,8 @@
 #include <vector>
 #include "AnimationKey.h"
 #include "Entity.h"
-#include "Maths.h"
+#include "glm/glm.hpp"
+using  namespace  glm;
 class Animation
 {
 	public:
