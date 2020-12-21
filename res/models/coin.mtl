@@ -1,0 +1,16 @@
+# Blender MTL File: 'GoldCoin.blend'
+# Material Count: 1
+
+newmtl GoldCoin
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Bump textures\Coin_Gold_nm.png
+map_Kd textures\Coin_Gold_albedo.png
+map_Ns textures\Coin_Gold_rough.png
+map_Ks textures\Coin_Gold_metalness.png
