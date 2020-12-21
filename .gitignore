@@ -5,7 +5,6 @@
 *.slo
 *.lo
 *.o
-*.obj
 
 # Precompiled Headers
 *.gch
@@ -30,3 +29,30 @@
 *.exe
 *.out
 *.app
+
+# Project
+.DS_Store
+.vscode
+ft_vox
+imgui.ini
+
+# Cmake
+**/CMakeLists.txt.user
+**/CMakeCache.txt
+**/CMakeFiles
+**/CMakeScripts
+**/Testing
+**/cmake_install.cmake
+**/install_manifest.txt
+**/compile_commands.json
+**/CTestTestfile.cmake
+**/_deps
+build/*
+.idea
+cmake-build-debug
+*.exe.manifest
+*.exe
+cmake
+!build/anchor
+humangl
+humagl
