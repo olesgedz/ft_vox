@@ -74,11 +74,11 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam)
 			glm::mat4 model = glm::mat4(1.0f);
 			mesh1->shader->setMat4("projMatrix", projection);
 
-			mesh1->shader->setMat4("viewMatrix", cam->view);
-			cout << glm::to_string(cam->view) << endl;
+			mesh1->shader->setMat4("viewMatrix", cam->GetViewMatrix());
+//			cout << glm::to_string(cam->view) << endl;
 
 			mesh1->shader->setMat4("modelMatrix", model);
-
+//
 			mesh1->draw();
 
 		//}

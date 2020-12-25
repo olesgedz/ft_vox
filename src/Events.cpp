@@ -1,6 +1,7 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include "events.h"
+#include <iostream>
 
 Controls::Controls()
 {
@@ -30,9 +31,15 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
+		{
+			//std::cout << "Key pressed " + con->keys[key] << std::endl;
 			con->keys[key] = true;
+		}
 		else if (action == GLFW_RELEASE)
+		{
+			//std::cout << "Key RELEASE " + con->keys[key] << std::endl;
 			con->keys[key] = false;
+		}
 	}
 }
 
@@ -56,6 +63,7 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 		con->last_y = ypos;
 		con->first_m = false;
 	}
+
 	xoffset = xpos - con->last_x;
 	yoffset = con->last_y - ypos;
 	con->last_x = xpos;
@@ -64,8 +72,11 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 	yoffset *= sensitivity;
 	con->yaw += xoffset;
 	con->pitch += yoffset;
+	con->camera->Pitch = con->pitch;
+	con->camera->Yaw = con->yaw;
 	if (con->pitch > 89.0f)
 		con->pitch = 89.0f;
 	if (con->pitch < -89.0f)
 		con->pitch = -89.0f;
+	con->camera->updateCameraVectors();
 }

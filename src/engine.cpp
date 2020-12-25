@@ -20,6 +20,7 @@ Engine::~Engine()
 
 void Engine::init_engine(int width, int height)
 {
+	controls.set_camera(&cam);
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -45,8 +46,8 @@ void Engine::init_engine(int width, int height)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	controls.yaw = cam.yaw;
-	controls.pitch = cam.pitch;
+	controls.yaw = cam.Yaw;
+	controls.pitch = cam.Pitch;
 	rend.init();
 
     IMGUI_CHECKVERSION();
@@ -77,7 +78,7 @@ void Engine::run_engine()
 		if (timer >= 1.0)
 		{
 			timer -= 1.0;
-			std::cout << "fps - " << fps << std::endl;
+//			std::cout << "fps - " << fps << std::endl;
 			fps = 0;
 		}
 		old_time = glfwGetTime();
@@ -86,22 +87,35 @@ void Engine::run_engine()
 		ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-		cam.speed = 8.0f * delta_time;
+		//cam. = 8.0f * delta_time;
 
 
-		if (controls.keys[GLFW_KEY_A])
-			cam.pos = cam.pos - cam.speed * normalize(cross(cam.front, cam.up));
-		if (controls.keys[GLFW_KEY_D])
-			cam.pos = cam.pos + cam.speed * normalize(cross(cam.front, cam.up));
-		if (controls.keys[GLFW_KEY_W])
-			cam.pos = cam.pos + cam.speed * cam.front;
-		if (controls.keys[GLFW_KEY_S])
-			cam.pos = cam.pos - cam.speed * cam.front;
+//		if (controls.keys[GLFW_KEY_X])
+//			cam.pos = cam.pos - cam.speed * cam.right;
+//		if (controls.keys[GLFW_KEY_Z])
+//			cam.pos = cam.pos + cam.speed * cam.right;
+//		if (controls.keys[GLFW_KEY_W])
+//			cam.pos = cam.pos + cam.speed * cam.front;
+//		if (controls.keys[GLFW_KEY_S])
+//			cam.pos = cam.pos - cam.speed * cam.front;
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, true);
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			cam.ProcessKeyboard(FORWARD, delta_time);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			cam.ProcessKeyboard(BACKWARD, delta_time);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			cam.ProcessKeyboard(LEFT, delta_time);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			cam.ProcessKeyboard(RIGHT, delta_time);
+		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+			cam.ProcessKeyboard(UP, delta_time);
+		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+			cam.ProcessKeyboard(DOWN, delta_time);
+//		cam.yaw = controls.yaw;
+//		cam.pitch = controls.pitch;
 
-		cam.yaw = controls.yaw;
-		cam.pitch = controls.pitch;
-
-		cam.update_free();
+		//cam.update_free();
 //		rend.draw_skybox(&skybox, &cam);
 		rend.draw_scene(&animator, &scene, &cam);
 		//rend.draw_pbr(&scene, &cam);
