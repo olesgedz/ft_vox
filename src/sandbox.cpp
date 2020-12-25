@@ -20,13 +20,14 @@ void Sandbox::place_ent(Engine* eng)
 	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
 							vec3(0.5f, -0.5f, -1.0f), // right
 								 vec3(0.0f,  0.5f, 0.0f) };
-	boxModel->meshes.emplace_back(a);
+	boxModel->meshes.emplace_back();
 	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+	boxModel->meshes[0].load_obj("res/models/test.obj");
 	boxModel->meshes[0].bind_shader(&shader);
 	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
 	boxModel->meshes[0].shader->use();
 
-//	boxModel->meshes[0].bind_texture();
+	boxModel->meshes[0].bind_texture();
 	boxModel->meshes[0].upload();
 //	box.,
 	eng->add_entity(box);

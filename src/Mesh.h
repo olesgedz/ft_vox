@@ -42,24 +42,9 @@ public:
 	vector<GLushort> elements;
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	glm::mat4 object2world;
-	Mesh() : vbo_vertices(0), vbo_normals(0), ibo_elements(0),vbo_uvs(0), object2world(glm::mat4(1)) {
+		Mesh() : vbo_vertices(0), vbo_normals(0), ibo_elements(0), object2world(glm::mat4(1)) {
 		this->textureExists = 0;
 	}
-	Mesh(vector<glm::vec3> vertices, vector<glm::vec3> normals, vector<glm::vec2> uvs) : vbo_vertices(0),
-	vbo_normals(0), ibo_elements(0),vbo_uvs(0), object2world(glm::mat4(1)),
-	vertices(vertices),normals(normals),uvs(uvs)
-	{
-		this->textureExists = 0;
-	}
-
-	Mesh(vector<glm::vec3> vertices) : vbo_vertices(0),
-	vbo_normals(0), ibo_elements(0),vbo_uvs(0), object2world(glm::mat4(1)),
-	vertices(vertices)
-	{
-		this->textureExists = 0;
-	}
-
-
 	~Mesh() {
 		if (vbo_vertices != 0)
 			glDeleteBuffers(1, &vbo_vertices);
@@ -93,6 +78,5 @@ public:
 	void draw_bbox();
 
 };
-
 
 #endif //FT_VOX_MESH_H
