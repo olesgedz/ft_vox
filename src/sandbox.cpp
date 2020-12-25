@@ -35,7 +35,7 @@ void Sandbox::place_ent(Engine* eng)
 
 	Entity*  box = new Entity();
 //	Model* 	boxModel = new Model();
-	Chunk * c = new Chunk();
+	Chunk * c = new Chunk(vec3(0,0,0));
 	c->generate();
 	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
 							vec3(0.5f, -0.5f, -1.0f), // right

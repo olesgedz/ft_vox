@@ -6,7 +6,7 @@
 #define FT_VOX_CHUNK_H
 #include "Model.h"
 #include "Block.h"
-#include "PerlinNoise/PerlinNoise.hpp"
+#include "PerlinNoise.h"
 
 class Chunk
 {
@@ -25,7 +25,7 @@ class Chunk
 	BlockType *** allocateChunk();
 	void generateTerrain();
 	void setNeighbors();
-	void glInitialize();
+	//void glInitialize();
 	Chunk(vec3 pos);
 //	private:
 

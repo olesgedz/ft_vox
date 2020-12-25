@@ -4,6 +4,7 @@
 
 #include "Chunk.h"
 #include "Quad.h"
+PerlinNoise Chunk::m_noise = PerlinNoise();
 void Chunk::generate()
 {
 	model.meshes.emplace_back();
@@ -16,16 +17,16 @@ void Chunk::generate()
 Chunk::Chunk(vec3 p)
 {
 
-	pos = pos;
+	pos = p;
 	c = this;
-	m_noise.setScale(Chunk::horizontal);
+    m_noise.setScale(Chunk::horizontal);
 	matrix = allocateChunk();
 	generateTerrain();
 	for(int x = 0; x < horizontal; x++)
 	{
 		for(int y = 0; y < vertical; y++)
 		{
-			for(int z = 0; z < horizontal; z++)
+			for(int z = 0; z < depth; z++)
 			{
 				matrix [x][y][z] = BlockType::AIR;
 				if (y == heightMap [x] [z])
@@ -35,10 +36,12 @@ Chunk::Chunk(vec3 p)
 				if (y < heightMap [x] [z] / 2 + 1)
 					matrix[x][y][z] = BlockType::STONE;
 			}
+			cout << (int)matrix [x][y][0] << " ";
 		}
+		cout << endl;
 	}
-	setNeighbors();
-	glInitialize();
+	//setNeighbors();
+	//glInitialize();
 	delete [] matrix;
 	delete [] heightMap;
 }
@@ -56,8 +59,22 @@ BlockType *** Chunk::allocateChunk()
 		{
 
 			newMatrix[x][y] = new BlockType[Chunk::depth];
+//			for (int z = 0; z < Chunk::depth; z++)
+//				cout << (int)newMatrix[x][y][z] << " " << x << endl;
+
 		}
 	}
+
+//	for (int x = 0; x < Chunk::horizontal; x++)
+//	{
+//		for (int y = 0; y < Chunk::vertical; y++)
+//		{
+//			for (int z = 0; z < Chunk::depth; z++)
+//			{
+//				cout << (int)newMatrix[x][y][z] << endl;
+//			}
+//		}
+//	}
 	return newMatrix;
 }
 
@@ -65,11 +82,11 @@ BlockType *** Chunk::allocateChunk()
 void Chunk::setBlock(BlockType b_type, vec3 &pos, bool *neighbors)
 {
 	Block temp = Block(b_type, pos, neighbors, this);
-	for (float &m_vertice : temp.m_vertices)
-		m_vertices.push_back(m_vertice);
-	for (int &m_indice : temp.m_indices)
-		m_indices.push_back(m_indice + indices_multiplier);
-	indices_multiplier += temp.m_indices.size() / 6 * 4;
+//	for (float &m_vertice : temp.m_vertices)
+//		m_vertices.push_back(m_vertice);
+//	for (int &m_indice : temp.m_indices)
+//		m_indices.push_back(m_indice + indices_multiplier);
+//	indices_multiplier += temp.m_indices.size() / 6 * 4;
 }
 
 void Chunk::setNeighbors()
@@ -83,7 +100,7 @@ void Chunk::setNeighbors()
 			for(int z = 0; z < horizontal; z++)
 			{
 				bool neighbors[6] = {false}; // why do you have
-				vec3 pos = {x + pos.x, y + pos.y, z + pos.z};
+				vec3 posl = {x + pos.x, y + pos.y, z + pos.z};
 				if(x > 0 && matrix[x - 1] [y][z] != BlockType::AIR )
 					neighbors [0] = true;
 				if(x < horizontal - 1 && matrix[x + 1] [y][z] != BlockType::AIR )
@@ -97,7 +114,7 @@ void Chunk::setNeighbors()
 				if(z > 0 && matrix[x] [y][z - 1] != BlockType::AIR )
 					neighbors [4] = true;
 				if(matrix[x][y][z] != BlockType::AIR)
-					setBlock(BlockType(matrix[x][y][z]), pos, neighbors);
+					setBlock(BlockType(matrix[x][y][z]), posl, neighbors);
 			}
 		}
 	}
@@ -105,7 +122,8 @@ void Chunk::setNeighbors()
 
 void Chunk::generateTerrain()
 {
-	m_noise.setScale(Chunk::horizontal * 32);
+
+	 m_noise.setScale(Chunk::horizontal * 32);
 	heightMap = new int*[Chunk::horizontal];
 	for (int x = 0; x < Chunk::horizontal; x++)
 	{

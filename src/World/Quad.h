@@ -24,7 +24,7 @@ public:
 		LAST
 	};
 	Quad (QuadType type, Mesh * mesh);
-	Quad (QuadType type);
+	//Quad (QuadType type);
 
 	static unsigned int m_indices[6];
 	std::vector<float> m_vertices;

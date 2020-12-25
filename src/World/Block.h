@@ -25,11 +25,11 @@ class Block
 {
 public:
 
-	Block(BlockType b_type, int * pos, bool * neighbors, Chunk * chunk);
+	Block(BlockType b_type, vec3& pos, bool * neighbors, Chunk * chunk);
 private:
 	Chunk * parent;
 	BlockType m_type;
-	int * m_pos;
+	vec3 m_pos;
 	int indices_multiplier = 0;
 	void setTex(BlockType b_type, Quad::QuadType q_type, float * texCoords);
 	void pushFace(Quad::QuadType type, float * texCoords);
