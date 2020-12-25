@@ -256,7 +256,7 @@ void Mesh::draw()
 	glBindVertexArray(this->voa);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 
-	if (false && this->vertexIndices.size() > 0)
+	if (this->vertexIndices.size() > 0)
 	{
 		glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, 0);
 	}

@@ -1,5 +1,5 @@
 #include "sandbox.h"
-
+#include "Chunk.h"
 void Sandbox::place_ent(Engine* eng)
 {
 //    Entity*  torso = new Entity();
@@ -15,23 +15,55 @@ void Sandbox::place_ent(Engine* eng)
 //    Model* mod = new Model();
 //    Model* lightMod = new Model();
 
+//	Entity*  box = new Entity();
+//	Model* 	boxModel = new Model();
+//	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
+//							vec3(0.5f, -0.5f, -1.0f), // right
+//								 vec3(0.0f,  0.5f, 0.0f) };
+//	boxModel->meshes.emplace_back();
+//	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+//	boxModel->meshes[0].load_obj("res/models/test.obj");
+//	boxModel->meshes[0].bind_shader(&shader);
+//	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
+//	boxModel->meshes[0].shader->use();
+//
+//	boxModel->meshes[0].bind_texture();
+//	boxModel->meshes[0].upload();
+////	box.,
+//	eng->add_entity(box);
+//	box->set_model(boxModel);
+
 	Entity*  box = new Entity();
-	Model* 	boxModel = new Model();
+//	Model* 	boxModel = new Model();
+	Chunk * c = new Chunk();
+	c->generate();
 	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
 							vec3(0.5f, -0.5f, -1.0f), // right
 								 vec3(0.0f,  0.5f, 0.0f) };
-	boxModel->meshes.emplace_back();
+//	boxModel->meshes.emplace_back();
 	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
-	boxModel->meshes[0].load_obj("res/models/test.obj");
-	boxModel->meshes[0].bind_shader(&shader);
-	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
-	boxModel->meshes[0].shader->use();
-
-	boxModel->meshes[0].bind_texture();
-	boxModel->meshes[0].upload();
+	c->model.meshes[0].bind_shader(&shader);
+	c->model.meshes[0].shader->use();
+	c->model.meshes[0].upload();
+//	boxModel->meshes[0].load_obj("res/models/test.obj");
+//	boxModel->meshes[0].bind_shader(&shader);
+//	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
+//	boxModel->meshes[0].shader->use();
+//
+//	boxModel->meshes[0].bind_texture();
+//	boxModel->meshes[0].upload();
 //	box.,
+
+
+
+	for(auto i : c->model.meshes[0].vertices)
+	{
+		cout << to_string(i) << endl;
+	}
 	eng->add_entity(box);
-	box->set_model(boxModel);
+	box->set_model(&c->model);
+
+
 //    glm::vec3 lightPositions[] = {
 //        glm::vec3(-3.0f,  1.0f, 3.0f),
 //        glm::vec3(3.0f,  1.0f, 3.0f),

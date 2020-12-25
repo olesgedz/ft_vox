@@ -44,14 +44,17 @@ set(INCLUDES
     libs/imgui/backends
     libs/imgui/
     libs/glm/  src/
-    src/Debug/)
+    src/Debug/ src/World/)
 set(SOURCEFILES
     src/main.cpp
     libs/glad/src/glad.c libs/stb_image/stb_image.h libs/stb_image/stb_image_helper.cpp src/camera.cpp
     libs/imgui/imgui.cpp libs/imgui/imgui_draw.cpp libs/imgui/imgui_widgets.cpp libs/imgui/backends/imgui_impl_opengl3.cpp libs/imgui/backends/imgui_impl_glfw.cpp
         libs/imgui/imgui_tables.cpp
     src/engine.cpp src/Entity.cpp src/Events.cpp src/Model.cpp src/Render.cpp src/Shader.cpp src/skybox.cpp src/sandbox.cpp src/scene.cpp
-    src/Animator.cpp src/Animator.h src/Animation.cpp src/Animation.h src/AnimationKey.cpp src/AnimationKey.h src/VertexBuffer/VertexBuffer.cpp src/VertexBuffer/VertexBuffer.h src/VertexBuffer/VertexArray.cpp src/VertexBuffer/VertexArray.h src/VertexBuffer/VertexBuffersLayout.cpp src/VertexBuffer/VertexBuffersLayout.h src/VertexBuffer/Vertex.cpp src/VertexBuffer/Vertex.h src/Mesh.cpp src/Mesh.h src/Debug/DebugGl.cpp src/Debug/DebugGl.h)
+    src/Animator.cpp src/Animator.h src/Animation.cpp src/Animation.h src/AnimationKey.cpp src/AnimationKey.h src/VertexBuffer/VertexBuffer.cpp
+    src/VertexBuffer/VertexBuffer.h src/VertexBuffer/VertexArray.cpp src/VertexBuffer/VertexArray.h src/VertexBuffer/VertexBuffersLayout.cpp
+    src/VertexBuffer/VertexBuffersLayout.h src/VertexBuffer/Vertex.cpp src/VertexBuffer/Vertex.h src/Mesh.cpp src/Mesh.h src/Debug/DebugGl.cpp
+    src/Debug/DebugGl.h  src/World/Chunk.cpp src/World/Chunk.h src/World/Block.cpp src/World/Block.h src/World/Quad.cpp src/World/Quad.h)
 include_directories(${INCLUDES})
 add_executable(${PROJECT_NAME} ${SOURCEFILES})
 link_directories(${INCLUDES}
