@@ -21,7 +21,7 @@ void Sandbox::place_ent(Engine* eng)
 							vec3(0.5f, -0.5f, -1.0f), // right
 								 vec3(0.0f,  0.5f, 0.0f) };
 	boxModel->meshes.emplace_back();
-	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
 	boxModel->meshes[0].load_obj("res/models/test.obj");
 	boxModel->meshes[0].bind_shader(&shader);
 	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
