@@ -154,6 +154,7 @@ void Mesh::upload()
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(0);
 //		glCheckError();
+cout << "uploaded" << endl;
 	}
 
 	if (normals.size() > 0)
@@ -161,7 +162,8 @@ void Mesh::upload()
 		glGenBuffers(1, &vbo_normals);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
 		glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(normals[0]),
-					 normals.data(), GL_STATIC_DRAW);
+					 normals.data(),
+					 GL_STATIC_DRAW);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(1);
 	}
@@ -256,7 +258,7 @@ void Mesh::draw()
 	glBindVertexArray(this->voa);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 
-	if (this->vertexIndices.size() > 0)
+	if (true && this->vertexIndices.size() > 0)
 	{
 		glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, 0);
 	}
@@ -266,14 +268,7 @@ void Mesh::draw()
 	}
 
 
-	if (this->vbo_normals != 0)
-		glDisableVertexAttribArray(attribute_v_normal);
-	if (this->vbo_vertices != 0)
-		glDisableVertexAttribArray(attribute_v_coord);
-	if (this->vbo_vertices != 0)
-		glDisableVertexAttribArray(attribute_v_uvs);
-	if (this->vbo_uvs != 0)
-		glDisableVertexAttribArray(attribute_v_uvs);
+
 }
 
 /**

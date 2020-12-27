@@ -41,7 +41,7 @@ void Sandbox::place_ent(Engine* eng)
 							vec3(0.5f, -0.5f, -1.0f), // right
 								 vec3(0.0f,  0.5f, 0.0f) };
 //	boxModel->meshes.emplace_back();
-	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
 	c->model.meshes[0].bind_shader(&shader);
 	c->model.meshes[0].shader->use();
 	c->model.meshes[0].upload();

@@ -130,8 +130,7 @@ void Block::pushFace(Quad::QuadType type, float * texCoords)
 //			tex_index += 2;
 //		}
 //	}
-//	parent->rigidbody.push_back(glm::vec3 (m_pos[0] - 0.5f, m_pos[1] - 0.5f, m_pos[2] - 1));
-//	parent->rigidbody.push_back(glm::vec3 (m_pos[0] + 0.5f, m_pos[1] + 0.5f, m_pos[2]));
+
 //	for(unsigned int m_indice : Quad::m_indices)
 //	{
 //		m_indices.push_back(m_indice + indices_multiplier);
