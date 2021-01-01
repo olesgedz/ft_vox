@@ -7,16 +7,18 @@
 #include "Model.h"
 #include "Block.h"
 #include "PerlinNoise.h"
+#include "FastNoiseLite.h"
 
 class Chunk
 {
 	public:
 		Model model;
 		void generate();
-	static constexpr int horizontal = 16;
-	static constexpr int vertical = 25;
-	const int depth = 2;
+	static constexpr int horizontal = 10;
+	static constexpr int vertical = 10;
+	const int depth = 10;
 	static PerlinNoise m_noise;
+	static FastNoiseLite noise;
 	vec3 pos;
 	Chunk * c;
 	BlockType ***matrix;

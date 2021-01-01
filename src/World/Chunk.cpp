@@ -5,6 +5,8 @@
 #include "Chunk.h"
 #include "Quad.h"
 PerlinNoise Chunk::m_noise = PerlinNoise();
+FastNoiseLite Chunk::noise = FastNoiseLite();
+
 void Chunk::generate()
 {
 	//model.meshes[0].vertices.push_back(vec3(0,0,0));
@@ -15,6 +17,7 @@ void Chunk::generate()
 
 Chunk::Chunk(vec3 p)
 {
+	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 	model.meshes.emplace_back();
 //	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
 
@@ -37,10 +40,10 @@ Chunk::Chunk(vec3 p)
 					matrix[x][y][z] = BlockType::DIRT;
 				if (y < heightMap [x] [z] / 2 + 1)
 					matrix[x][y][z] = BlockType::STONE;
+				cout << (int)heightMap [x][z] << " ";
 			}
-			cout << (int)matrix [x][y][0] << " ";
+			cout << endl;
 		}
-		cout << endl;
 	}
 	setNeighbors();
 	//glInitialize();
@@ -103,7 +106,7 @@ void Chunk::setNeighbors()
 	{
 		for(int y = 0; y < vertical; y++)
 		{
-			for(int z = 0; z < horizontal; z++)
+			for(int z = 0; z < depth; z++)
 			{
 				bool neighbors[6] = {false}; // why do you have
 				vec3 posl = {x + pos.x, y + pos.y, z + pos.z};
@@ -115,7 +118,7 @@ void Chunk::setNeighbors()
 					neighbors [3] = true;
 				if(y > 0 && matrix[x] [y - 1][z] != BlockType::AIR )
 					neighbors [2] = true;
-				if(z < horizontal - 1 && matrix[x] [y] [z + 1] != BlockType::AIR )
+				if(z < depth - 1 && matrix[x] [y] [z + 1] != BlockType::AIR )
 					neighbors [5] = true;
 				if(z > 0 && matrix[x] [y][z - 1] != BlockType::AIR )
 					neighbors [4] = true;
@@ -139,11 +142,12 @@ void Chunk::generateTerrain()
 	{
 		for(int z = 0; z < Chunk::horizontal; z++)
 		{
-			float n = m_noise.fracNoise3D(20.03 * (pos.x + x), 0 ,  20.007 * (pos.z + z));
-			if (n > 1)
-				n = 1;
-			heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;
-			heightMap [x][z] = int(heightMap [x] [z]) - 1;
+			//float n = m_noise.fracNoise3D(20.03 * (pos.x + x), 0 ,  20.007 * (pos.z + z));
+//			if (n > 1)
+//				n = 1;
+			//heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;
+			heightMap [x][z] =  (1 - noise.GetNoise(20.03 * ((float)(pos.x + x)) + 300000,20.007 * ((float)(pos.z + z) + 300000))) * Chunk::vertical / 2.0f;
+			//heightMap [x][z] = int(heightMap [x] [z]) - 1;
 		}
 	}
 }
