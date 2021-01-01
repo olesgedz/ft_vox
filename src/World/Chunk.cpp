@@ -8,9 +8,8 @@ PerlinNoise Chunk::m_noise = PerlinNoise();
 void Chunk::generate()
 {
 	model.meshes.emplace_back();
-	Quad(Quad::QuadType::FRONT, &model.meshes[0]);
-	for (auto index : Quad::m_indices)
-		model.meshes[0].vertexIndices.push_back(index);
+//	vec3 a =  vec3(0,0,0);
+//	Quad(Quad::QuadType::FRONT, this,a);
 }
 
 
@@ -40,8 +39,11 @@ Chunk::Chunk(vec3 p)
 		}
 		cout << endl;
 	}
-	//setNeighbors();
+	setNeighbors();
 	//glInitialize();
+	bool neighbors[6] = {false};
+	vec3 a = vec3(0,0,0);
+	//setBlock(BlockType(matrix[0][0][0]), a, neighbors);
 	delete [] matrix;
 	delete [] heightMap;
 }
@@ -81,7 +83,8 @@ BlockType *** Chunk::allocateChunk()
 
 void Chunk::setBlock(BlockType b_type, vec3 &pos, bool *neighbors)
 {
-	Block temp = Block(b_type, pos, neighbors, this);
+	Block(b_type, pos, neighbors, this);
+
 //	for (float &m_vertice : temp.m_vertices)
 //		m_vertices.push_back(m_vertice);
 //	for (int &m_indice : temp.m_indices)
@@ -113,8 +116,8 @@ void Chunk::setNeighbors()
 					neighbors [5] = true;
 				if(z > 0 && matrix[x] [y][z - 1] != BlockType::AIR )
 					neighbors [4] = true;
-				if(matrix[x][y][z] != BlockType::AIR)
-					setBlock(BlockType(matrix[x][y][z]), posl, neighbors);
+//				if(matrix[x][y][z] != BlockType::AIR)
+//					setBlock(BlockType(matrix[x][y][z]), posl, neighbors);
 			}
 		}
 	}
@@ -133,7 +136,7 @@ void Chunk::generateTerrain()
 	{
 		for(int z = 0; z < Chunk::horizontal; z++)
 		{
-			float n = m_noise.fracNoise3D(20 * (pos.x + x), 0 ,  20 * (pos.z + z));
+			float n = 1;//m_noise.fracNoise3D(20 * (pos.x + x), 0 ,  20 * (pos.z + z));
 			if (n > 1)
 				n = 1;
 			heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;

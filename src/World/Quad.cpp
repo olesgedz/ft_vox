@@ -4,6 +4,7 @@
 
 #include "Quad.h"
 #include "glm/glm.hpp"
+#include "Chunk.h"
 static vec3 vFront [] ={
 		vec3(0.5f,  0.5f,  0.0f),
 		vec3(0.5f, -0.5f,  0.0f),
@@ -40,37 +41,39 @@ static vec3 vLeft [] = {
 		vec3(-0.5f,  0.5f,  0.0f),
 		vec3(-0.5f, -0.5f,  0.0f)
 };
-Quad::Quad(QuadType type, Mesh * mesh)
+Quad::Quad(QuadType type, Chunk * chunk, vec3 &pos)
 {
 	switch (type)
 	{
 		case FRONT:
 			for(vec3 &i : vFront)
-				mesh->vertices.push_back(i);
+				chunk->model.meshes[0].vertices.push_back(i + pos);
 			break;
 		case BACK:
 			for(glm::vec3 &i : vBack)
-				mesh->vertices.push_back(i);
+				chunk->model.meshes[0].vertices.push_back(i + pos);
 			break;
 		case LEFT:
 			for(glm::vec3 &i : vLeft)
-				mesh->vertices.push_back(i);
+				chunk->model.meshes[0].vertices.push_back(i + pos);
 			break;
 		case RIGHT:
 			for(glm::vec3 &i : vRight)
-				mesh->vertices.push_back(i);
+				chunk->model.meshes[0].vertices.push_back(i + pos);
 			break;
 		case TOP:
 			for(glm::vec3 &i : vTop)
-				mesh->vertices.push_back(i);
+				chunk->model.meshes[0].vertices.push_back(i + pos);
 			break;
 		case BOTTOM:
 			for(glm::vec3 &i : vBottom)
-				mesh->vertices.push_back(i);
+				chunk->model.meshes[0].vertices.push_back(i + pos);
 			break;
 		default:
 			break;
 	}
+	for (auto index : Quad::m_indices)
+		chunk->model.meshes[0].vertexIndices.push_back(index += chunk->n_vertices);
 }
 
 unsigned int Quad::m_indices[6] = {

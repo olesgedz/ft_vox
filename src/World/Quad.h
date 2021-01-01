@@ -10,6 +10,7 @@
 #include <vector>
 #include <array>
 
+class Chunk;
 class Quad
 {
 public:
@@ -23,11 +24,11 @@ public:
 		FRONT,
 		LAST
 	};
-	Quad (QuadType type, Mesh * mesh);
+	Quad (QuadType type, Chunk * chunk, vec3& pos);
 	//Quad (QuadType type);
 
 	static unsigned int m_indices[6];
-	std::vector<float> m_vertices;
+//	std::vector<float> m_vertices;
 private:
 
 

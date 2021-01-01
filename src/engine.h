@@ -18,7 +18,8 @@ public:
 	Skybox						skybox;
 	Entity						*player;
 	bool						free_cam;
-	bool						close_eng;
+	bool						close_eng = false
+			 ;
 public:
 			~Engine();
 	void	init_engine(int width, int height);

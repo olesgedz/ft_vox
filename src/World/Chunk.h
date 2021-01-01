@@ -25,6 +25,7 @@ class Chunk
 	BlockType *** allocateChunk();
 	void generateTerrain();
 	void setNeighbors();
+	int n_vertices = 0;
 	//void glInitialize();
 	Chunk(vec3 pos);
 //	private:

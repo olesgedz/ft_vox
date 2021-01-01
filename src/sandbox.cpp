@@ -34,34 +34,49 @@ void Sandbox::place_ent(Engine* eng)
 //	box->set_model(boxModel);
 
 	Entity*  box = new Entity();
-//	Model* 	boxModel = new Model();
+	Entity*  coin = new Entity();
+	Entity*  chunk = new Entity();
+
+	Model* 	boxModel = new Model();
 	Chunk * c = new Chunk(vec3(0,0,0));
 	c->generate();
 	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
 							vec3(0.5f, -0.5f, -1.0f), // right
 								 vec3(0.0f,  0.5f, 0.0f) };
-//	boxModel->meshes.emplace_back();
-	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
-	c->model.meshes[0].bind_shader(&shader);
+
+	Model* 	coinModel = new Model();
+	boxModel->meshes.emplace_back();
+	coinModel->meshes.emplace_back();
+
+	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+	c->model.meshes[0].bind_shader(shader);
 	c->model.meshes[0].shader->use();
 	c->model.meshes[0].upload();
-//	boxModel->meshes[0].load_obj("res/models/test.obj");
-//	boxModel->meshes[0].bind_shader(&shader);
-//	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
-//	boxModel->meshes[0].shader->use();
-//
-//	boxModel->meshes[0].bind_texture();
-//	boxModel->meshes[0].upload();
-//	box.,
+	eng->add_entity(chunk);
+	chunk->set_model(&c->model);
 
 
 
-	for(auto i : c->model.meshes[0].vertices)
-	{
-		cout << to_string(i) << endl;
-	}
+	boxModel->meshes[0].load_obj("res/models/test.obj");
+	boxModel->meshes[0].bind_shader(shader);
+	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
+	boxModel->meshes[0].shader->use();
+	boxModel->meshes[0].bind_texture();
+	boxModel->meshes[0].upload();
 	eng->add_entity(box);
-	box->set_model(&c->model);
+	box->set_model(boxModel);
+
+//	coinModel->meshes[0].load_obj("resources/elf/elf.obj");
+	coinModel->meshes[0].load_obj("res/models/coin.obj");
+	coinModel->meshes[0].bind_shader(shader);
+	coinModel->meshes[0].load_texture("res/textures/wall.jpg");
+	coinModel->meshes[0].shader->use();
+	coinModel->meshes[0].bind_texture();
+	coinModel->meshes[0].upload();
+	eng->add_entity(coin);
+	coin->set_model(coinModel);
+
+
 
 
 //    glm::vec3 lightPositions[] = {

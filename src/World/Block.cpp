@@ -23,8 +23,9 @@ void Block::createMesh(bool * neighbors)
 	{
 		if(!neighbors[i])
 		{
-			setTex(m_type, Quad::QuadType(i), temp);
-			pushFace(Quad::QuadType(i), temp);
+			//setTex(m_type, Quad::QuadType(i), temp);
+			Quad(Quad::QuadType::FRONT, parent, m_pos);
+
 		}
 	}
 }
@@ -112,7 +113,7 @@ void Block::setTex(BlockType b_type, Quad::QuadType q_type, float * texCoords)
 }
 void Block::pushFace(Quad::QuadType type, float * texCoords)
 {
-	Quad temp = Quad(type, &parent->model.meshes[0]);
+//	Quad temp = Quad(type, &parent->model.meshes[0]);
 //	int tex_index = 0;
 //	for(int i = 0; i < 12; i++)
 //	{

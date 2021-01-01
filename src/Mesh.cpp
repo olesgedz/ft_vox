@@ -134,7 +134,7 @@ bool Mesh::load_obj(const char *filename)//, vector<glm::vec4> &vertices, vector
 		normals.push_back(normal);
 	}
 //	cout << "Elements count: " << elements.size() << endl;
-
+	vertexIndices.clear();
 	return true;
 }
 
@@ -154,7 +154,6 @@ void Mesh::upload()
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(0);
 //		glCheckError();
-cout << "uploaded" << endl;
 	}
 
 	if (normals.size() > 0)
@@ -258,7 +257,7 @@ void Mesh::draw()
 	glBindVertexArray(this->voa);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 
-	if (true && this->vertexIndices.size() > 0)
+	if (false && this->vertexIndices.size() > 0)
 	{
 		glDrawElements(GL_TRIANGLES, this->vertexIndices.size(), GL_UNSIGNED_INT, 0);
 	}
@@ -267,7 +266,7 @@ void Mesh::draw()
 		glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
 	}
 
-
+	glBindVertexArray(0); //  // Make sure the VAO is not changed from the outside
 
 }
 

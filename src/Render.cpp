@@ -53,12 +53,52 @@ void    Render::draw_child(Entity* ent, Animator *animator, Scene *scene, Camera
 
 void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam)
 {
+
+	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+
+//		unsigned  int vbo,voa;
+//	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
+//						   vec3(0.5f, -0.5f, -1.0f), // right
+//						   vec3(0.0f,  0.5f, 0.0f) };
+//		glGenBuffers(1, &vbo);
+//		glGenVertexArrays(1, &voa);
+//		glBindVertexArray(voa);
+//		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//		glBufferData(GL_ARRAY_BUFFER, sizeof(a) * sizeof(a.data()[0]), a.data(), GL_STATIC_DRAW);
+//		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+//		glEnableVertexAttribArray(0);
 	int length = scene->ents.size();
+	for (int i = 0; i < length; i++)
+	{
+		Entity *ent = scene->ents[i];
 
-
-       Entity *ent = scene->ents[0];
 		Model *mod = ent->mod;
-		Mesh * mesh1 = &mod->meshes[0];
+		Mesh *mesh1 = &mod->meshes[0];
+
+		shader.use();
+		glm::mat4 model = glm::mat4(1.0f);
+		shader.setMat4("projMatrix", projection);
+		shader.setMat4("viewMatrix", cam->GetViewMatrix());
+		shader.setMat4("modelMatrix", model);
+		mesh1->draw();
+	}
+
+//	int length = scene->ents.size();
+//
+//       Entity *ent = scene->ents[0];
+//		Model *mod = ent->mod;
+//		Mesh * mesh1 = &mod->meshes[0];
+//
+//			mesh1->shader->use();
+//			glm::mat4 model = glm::mat4(1.0f);
+//			mesh1->shader->setMat4("projMatrix", projection);
+//
+//			mesh1->shader->setMat4("viewMatrix", cam->GetViewMatrix());
+////			cout << glm::to_string(cam->view) << endl;
+//
+//				mesh1->shader->setMat4("modelMatrix", model);
+//
+//				mesh1->draw();
 //		for( Mesh &mesh1 : mod->meshes)
 //		{
 //		glGenBuffers(1, &vbo);
@@ -68,19 +108,24 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam)
 //		glBufferData(GL_ARRAY_BUFFER, sizeof(a) * sizeof(float ), a, GL_STATIC_DRAW);
 //		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 //		glEnableVertexAttribArray(0);
-			mesh1->shader->use();
-
-
-			glm::mat4 model = glm::mat4(1.0f);
-			mesh1->shader->setMat4("projMatrix", projection);
-
-			mesh1->shader->setMat4("viewMatrix", cam->GetViewMatrix());
-//			cout << glm::to_string(cam->view) << endl;
-
-			mesh1->shader->setMat4("modelMatrix", model);
+//		for (auto ent : scene->ents)
+//		{
+//			for (auto &mod : ent->mod)
+//			{
+//				mod,.shader->use();
 //
-			mesh1->draw();
-
+//
+//			glm::mat4 model = glm::mat4(1.0f);
+//				mesh.shader->setMat4("projMatrix", projection);
+//
+//				mesh.shader->setMat4("viewMatrix", cam->GetViewMatrix());
+////			cout << glm::to_string(cam->view) << endl;
+//
+//				mesh.shader->setMat4("modelMatrix", model);
+////
+//				mesh.draw();
+//			}
+//		}
 		//}
 //		}
 
