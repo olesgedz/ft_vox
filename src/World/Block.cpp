@@ -23,8 +23,12 @@ void Block::createMesh(bool * neighbors)
 	{
 		if(!neighbors[i])
 		{
-			//setTex(m_type, Quad::QuadType(i), temp);
-			Quad(Quad::QuadType::FRONT, parent, m_pos);
+			Quad(Quad::QuadType(i), parent, m_pos);
+			setTex(m_type, Quad::QuadType(i), temp);
+			for (int i = 0; i < 8; i+=2)
+			{
+				parent->model.meshes[0].uvs.push_back(vec2(temp[i], temp[i+1]));
+			}
 
 		}
 	}
@@ -32,84 +36,95 @@ void Block::createMesh(bool * neighbors)
 
 void Block::setTex(BlockType b_type, Quad::QuadType q_type, float * texCoords)
 {
-//	int tab = int(AtlasSlicer::uv[b_type * 6 + q_type].x);
-//	int row = int(AtlasSlicer::uv[b_type * 6 + q_type].y);
-	int tab = int(AtlasSlicer::uv[1 * 6 + q_type].x);
-	int row = int(AtlasSlicer::uv[1 * 6 + q_type].y);
-	float uv00x = float(tab - 1) / float(SIDE);
-	float uv00y = float(row - 1) / float(SIDE);
-	float uv01x = float(tab - 1) / float(SIDE);
-	float uv01y = float(row) / float(SIDE);
-	float uv10x = float(tab) / float(SIDE);
-	float uv10y = float(row - 1) / float(SIDE);
-	float uv11x = float(tab) / float(SIDE);
-	float uv11y = float(row) / float(SIDE);
-	switch(q_type) {
-		case Quad::LEFT:
-			texCoords[0] = uv00x;
-			texCoords[1] = uv00y;
-			texCoords[2] = uv01x;
-			texCoords[3] = uv01y;
-			texCoords[4] = uv11x;
-			texCoords[5] = uv11y;
-			texCoords[6] = uv10x;
-			texCoords[7] = uv10y;
-			break;
-		case Quad::RIGHT:
-			texCoords[0] = uv01x;
-			texCoords[1] = uv01y;
-			texCoords[2] = uv00x;
-			texCoords[3] = uv00y;
-			texCoords[4] = uv10x;
-			texCoords[5] = uv10y;
-			texCoords[6] = uv11x;
-			texCoords[7] = uv11y;
-			break;
-		case Quad::BOTTOM:
-			texCoords[0] = uv00x;
-			texCoords[1] = uv00y;
-			texCoords[2] = uv01x;
-			texCoords[3] = uv01y;
-			texCoords[4] = uv11x;
-			texCoords[5] = uv11y;
-			texCoords[6] = uv10x;
-			texCoords[7] = uv10y;
-			break;
-		case Quad::TOP:
-			texCoords[0] = uv00x;
-			texCoords[1] = uv00y;
-			texCoords[2] = uv01x;
-			texCoords[3] = uv01y;
-			texCoords[4] = uv11x;
-			texCoords[5] = uv11y;
-			texCoords[6] = uv10x;
-			texCoords[7] = uv10y;
-			break;
-		case Quad::FRONT:
-			texCoords[0] = uv11x;
-			texCoords[1] = uv11y;
-			texCoords[2] = uv10x;
-			texCoords[3] = uv10y;
-			texCoords[4] = uv00x;
-			texCoords[5] = uv00y;
-			texCoords[6] = uv01x;
-			texCoords[7] = uv01y;
-			break;
-		case Quad::BACK:
-			texCoords[0] = uv11x;
-			texCoords[1] = uv11y;
-			texCoords[2] = uv10x;
-			texCoords[3] = uv10y;
-			texCoords[4] = uv00x;
-			texCoords[5] = uv00y;
-			texCoords[6] = uv01x;
-			texCoords[7] = uv01y;
-			break;
-		case Quad::LAST:
-			break;
-		default:
-			break;
-	}
+	int tab = 1;//int(AtlasSlicer::uv[int(b_type) * 6 + q_type].x);
+	int row = 1;//int(AtlasSlicer::uv[int(b_type) * 6 + q_type].y);
+
+
+	texCoords[0] = 0;
+	texCoords[1] = 0;
+	texCoords[2] = 0;
+	texCoords[3] = 1;
+	texCoords[4] = 1;
+	texCoords[5] = 1;
+	texCoords[6] = 1;
+	texCoords[7] = 0;
+
+//	int tab = int(AtlasSlicer::uv[1 * 6 + q_type].x);
+//	int row = int(AtlasSlicer::uv[1 * 6 + q_type].y);
+//	float uv00x = float(tab - 1) / float(SIDE);
+//	float uv00y = float(row - 1) / float(SIDE);
+//	float uv01x = float(tab - 1) / float(SIDE);
+//	float uv01y = float(row) / float(SIDE);
+//	float uv10x = float(tab) / float(SIDE);
+//	float uv10y = float(row - 1) / float(SIDE);
+//	float uv11x = float(tab) / float(SIDE);
+//	float uv11y = float(row) / float(SIDE);
+//	switch(q_type) {
+//		case Quad::LEFT:
+//			texCoords[0] = uv00x;
+//			texCoords[1] = uv00y;
+//			texCoords[2] = uv01x;
+//			texCoords[3] = uv01y;
+//			texCoords[4] = uv11x;
+//			texCoords[5] = uv11y;
+//			texCoords[6] = uv10x;
+//			texCoords[7] = uv10y;
+//			break;
+//		case Quad::RIGHT:
+//			texCoords[0] = uv01x;
+//			texCoords[1] = uv01y;
+//			texCoords[2] = uv00x;
+//			texCoords[3] = uv00y;
+//			texCoords[4] = uv10x;
+//			texCoords[5] = uv10y;
+//			texCoords[6] = uv11x;
+//			texCoords[7] = uv11y;
+//			break;
+//		case Quad::BOTTOM:
+//			texCoords[0] = uv00x;
+//			texCoords[1] = uv00y;
+//			texCoords[2] = uv01x;
+//			texCoords[3] = uv01y;
+//			texCoords[4] = uv11x;
+//			texCoords[5] = uv11y;
+//			texCoords[6] = uv10x;
+//			texCoords[7] = uv10y;
+//			break;
+//		case Quad::TOP:
+//			texCoords[0] = uv00x;
+//			texCoords[1] = uv00y;
+//			texCoords[2] = uv01x;
+//			texCoords[3] = uv01y;
+//			texCoords[4] = uv11x;
+//			texCoords[5] = uv11y;
+//			texCoords[6] = uv10x;
+//			texCoords[7] = uv10y;
+//			break;
+//		case Quad::FRONT:
+//			texCoords[0] = uv11x;
+//			texCoords[1] = uv11y;
+//			texCoords[2] = uv10x;
+//			texCoords[3] = uv10y;
+//			texCoords[4] = uv00x;
+//			texCoords[5] = uv00y;
+//			texCoords[6] = uv01x;
+//			texCoords[7] = uv01y;
+//			break;
+//		case Quad::BACK:
+//			texCoords[0] = uv11x;
+//			texCoords[1] = uv11y;
+//			texCoords[2] = uv10x;
+//			texCoords[3] = uv10y;
+//			texCoords[4] = uv00x;
+//			texCoords[5] = uv00y;
+//			texCoords[6] = uv01x;
+//			texCoords[7] = uv01y;
+//			break;
+//		case Quad::LAST:
+//			break;
+//		default:
+//			break;
+//	}
 }
 void Block::pushFace(Quad::QuadType type, float * texCoords)
 {

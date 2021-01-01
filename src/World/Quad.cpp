@@ -43,6 +43,9 @@ static vec3 vLeft [] = {
 };
 Quad::Quad(QuadType type, Chunk * chunk, vec3 &pos)
 {
+//	for(vec3 i : vFront)
+//		chunk->model.meshes[0].vertices.push_back(i);
+
 	switch (type)
 	{
 		case FRONT:
@@ -73,7 +76,8 @@ Quad::Quad(QuadType type, Chunk * chunk, vec3 &pos)
 			break;
 	}
 	for (auto index : Quad::m_indices)
-		chunk->model.meshes[0].vertexIndices.push_back(index += chunk->n_vertices);
+		chunk->model.meshes[0].vertexIndices.push_back(index + chunk->n_vertices);
+	chunk->n_vertices += 4;
 }
 
 unsigned int Quad::m_indices[6] = {

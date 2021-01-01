@@ -7,7 +7,7 @@
 PerlinNoise Chunk::m_noise = PerlinNoise();
 void Chunk::generate()
 {
-	model.meshes.emplace_back();
+	//model.meshes[0].vertices.push_back(vec3(0,0,0));
 //	vec3 a =  vec3(0,0,0);
 //	Quad(Quad::QuadType::FRONT, this,a);
 }
@@ -15,10 +15,13 @@ void Chunk::generate()
 
 Chunk::Chunk(vec3 p)
 {
+	model.meshes.emplace_back();
+//	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+
 
 	pos = p;
 	c = this;
-    m_noise.setScale(Chunk::horizontal);
+    m_noise.setScale(Chunk::vertical);
 	matrix = allocateChunk();
 	generateTerrain();
 	for(int x = 0; x < horizontal; x++)
@@ -41,9 +44,9 @@ Chunk::Chunk(vec3 p)
 	}
 	setNeighbors();
 	//glInitialize();
-	bool neighbors[6] = {false};
-	vec3 a = vec3(0,0,0);
-	//setBlock(BlockType(matrix[0][0][0]), a, neighbors);
+//	bool neighbors[6] = {false};
+//	vec3 a = vec3(0,0,0);
+//	setBlock(BlockType::GROUND, a, neighbors);
 	delete [] matrix;
 	delete [] heightMap;
 }
@@ -116,8 +119,8 @@ void Chunk::setNeighbors()
 					neighbors [5] = true;
 				if(z > 0 && matrix[x] [y][z - 1] != BlockType::AIR )
 					neighbors [4] = true;
-//				if(matrix[x][y][z] != BlockType::AIR)
-//					setBlock(BlockType(matrix[x][y][z]), posl, neighbors);
+				if(matrix[x][y][z] != BlockType::AIR)
+					setBlock(BlockType(matrix[x][y][z]), posl, neighbors);
 			}
 		}
 	}
@@ -136,7 +139,7 @@ void Chunk::generateTerrain()
 	{
 		for(int z = 0; z < Chunk::horizontal; z++)
 		{
-			float n = 1;//m_noise.fracNoise3D(20 * (pos.x + x), 0 ,  20 * (pos.z + z));
+			float n = m_noise.fracNoise3D(20.03 * (pos.x + x), 0 ,  20.007 * (pos.z + z));
 			if (n > 1)
 				n = 1;
 			heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;

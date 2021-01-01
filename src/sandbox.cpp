@@ -39,7 +39,7 @@ void Sandbox::place_ent(Engine* eng)
 
 	Model* 	boxModel = new Model();
 	Chunk * c = new Chunk(vec3(0,0,0));
-	c->generate();
+	//c->generate();
 	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
 							vec3(0.5f, -0.5f, -1.0f), // right
 								 vec3(0.0f,  0.5f, 0.0f) };
@@ -49,32 +49,40 @@ void Sandbox::place_ent(Engine* eng)
 	coinModel->meshes.emplace_back();
 
 	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+
 	c->model.meshes[0].bind_shader(shader);
 	c->model.meshes[0].shader->use();
+	c->model.meshes[0].load_texture("resources/textures/test.png");
+	c->model.meshes[0].bind_texture();
 	c->model.meshes[0].upload();
+
+	//	c->model.meshes[0].bind_shader(shader);
+//	c->model.meshes[0].shader->use();
+//	c->model.meshes[0].upload();
 	eng->add_entity(chunk);
 	chunk->set_model(&c->model);
 
 
 
-	boxModel->meshes[0].load_obj("res/models/test.obj");
-	boxModel->meshes[0].bind_shader(shader);
-	boxModel->meshes[0].load_texture("res/textures/wall.jpg");
-	boxModel->meshes[0].shader->use();
-	boxModel->meshes[0].bind_texture();
-	boxModel->meshes[0].upload();
-	eng->add_entity(box);
-	box->set_model(boxModel);
-
-//	coinModel->meshes[0].load_obj("resources/elf/elf.obj");
-	coinModel->meshes[0].load_obj("res/models/coin.obj");
-	coinModel->meshes[0].bind_shader(shader);
-	coinModel->meshes[0].load_texture("res/textures/wall.jpg");
-	coinModel->meshes[0].shader->use();
-	coinModel->meshes[0].bind_texture();
-	coinModel->meshes[0].upload();
-	eng->add_entity(coin);
-	coin->set_model(coinModel);
+//	boxModel->meshes[0].load_obj("res/models/test.obj");
+//	boxModel->meshes[0].bind_shader(shader);
+//	boxModel->meshes[0].load_texture("resources/textures/spritesheet.png");
+//	boxModel->meshes[0].shader->use();
+//	boxModel->meshes[0].bind_texture();
+//	boxModel->meshes[0].upload();
+//	box->move_to(-2,0, -1);
+//	eng->add_entity(box);
+//	box->set_model(boxModel);
+//
+////	coinModel->meshes[0].load_obj("resources/elf/elf.obj");
+//	coinModel->meshes[0].load_obj("res/models/coin.obj");
+//	coinModel->meshes[0].bind_shader(shader);
+//	coinModel->meshes[0].load_texture("res/textures/wall.jpg");
+//	coinModel->meshes[0].shader->use();
+//	coinModel->meshes[0].bind_texture();
+//	coinModel->meshes[0].upload();
+//	eng->add_entity(coin);
+//	coin->set_model(coinModel);
 
 
 
