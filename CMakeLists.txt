@@ -56,7 +56,7 @@ set(SOURCEFILES
     src/VertexBuffer/VertexBuffersLayout.h src/VertexBuffer/Vertex.cpp src/VertexBuffer/Vertex.h src/Mesh.cpp src/Mesh.h src/Debug/DebugGl.cpp
     src/Debug/DebugGl.h  src/World/Chunk.cpp src/World/Chunk.h src/World/Block.cpp src/World/Block.h
     src/World/Quad.cpp src/World/Quad.h src/PerlinNoise/PerlinNoise.cpp
-    src/Utils/AtlasSlicer.cpp src/Utils/AtlasSlicer.h)
+    src/Utils/AtlasSlicer.cpp src/Utils/AtlasSlicer.h src/World/World.cpp src/World/World.h)
 include_directories(${INCLUDES})
 add_executable(${PROJECT_NAME} ${SOURCEFILES})
 link_directories(${INCLUDES}
