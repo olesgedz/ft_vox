@@ -52,7 +52,7 @@ void Sandbox::place_ent(Engine* eng)
 
 	c->model.meshes[0].bind_shader(shader);
 	c->model.meshes[0].shader->use();
-	c->model.meshes[0].load_texture("res/textures/wall.jpg");//("resources/textures/Test.png");
+	c->model.meshes[0].load_texture("resources/textures/spritesheet.png");//("resources/textures/Test.png");
 	c->model.meshes[0].bind_texture();
 	c->model.meshes[0].upload();
 
