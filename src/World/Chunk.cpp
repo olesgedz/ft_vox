@@ -19,7 +19,7 @@ Chunk::~Chunk()
 }
 Chunk::Chunk(vec3 p)
 {
-
+	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 	model.meshes.emplace_back();
 //	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
 
@@ -146,69 +146,13 @@ void Chunk::generateTerrain()
 //			if (n > 1)
 //				n = 1;
 			//heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;
-			heightMap [x][z] =  fBM()//(1 - noise.GetNoise(20.03 * ((float)(pos.x + x)) + 300000,20.007 * ((float)(pos.z + z) + 300000))) * Chunk::vertical / 2.0f;
+			heightMap [x][z] =  abs( 1 - noise.GetNoise( 2.3f *((float)(pos.x + x)) + 30310,  2.3f * ((float)(pos.z + z) + 3130))) * Chunk::vertical / 2.0f;
 			//heightMap [x][z] = int(heightMap [x] [z]) - 1;
 		}
 	}
 }
 
-float Chunk::fBM3D(float x, float y, float z, float sm, int oct)
-{
-	float XY = fBM(x*sm,y*sm,oct,0.5f);
-	float YZ = fBM(y*sm,z*sm,oct,0.5f);
-	float XZ = fBM(x*sm,z*sm,oct,0.5f);
 
-	float YX = fBM(y*sm,x*sm,oct,0.5f);
-	float ZY = fBM(z*sm,y*sm,oct,0.5f);
-	float ZX = fBM(z*sm,x*sm,oct,0.5f);
-
-	return (XY+YZ+XZ+YX+ZY+ZX)/6.0f;
-}
-//float inlerp(float a, float b, float value)
-//{
-//	if (a != b)
-//		return std::clamp((value - a) / (b - a));
-//	else
-//		return 0.0f;
-//}
-float Chunk::lerp( float a, float b, float t)
-{
-	return (a + t * (b - a));
-}
-float			Chunk::inlerp(float start, float end, float current)
-{
-	float placement;
-	float distance;
-
-	placement = current - start;
-	distance = end - start;
-	return ((distance == 0) ? 1.0 : (placement / distance));
-}
-float Chunk::Map(float newmin, float newmax, float origmin, float origmax, float value)
-{
-	return Chunk::lerp(newmin, newmax, Chunk::inlerp(origmin, origmax, value));
-}
-
-
-float Chunk::fBM(float x, float z, int oct, float pers)
-{
-	float total = 0;
-	float frequency = 1;
-	float amplitude = 1;
-	float maxValue = 0;
-	float offset = 32000;
-	for(int i = 0; i < oct ; i++)
-	{
-		total += (1 - noise.GetNoise(float(x+offset) * frequency, float(z+offset) * frequency))* amplitude;
-
-		maxValue += amplitude;
-
-		amplitude *= pers;
-		frequency *= 2;
-	}
-
-	return total/maxValue;
-}
 
 //float Chunk::boxCast(Camera &camera, glm::vec3 min, glm::vec3 max, glm::mat4 ModelMatrix)
 //{

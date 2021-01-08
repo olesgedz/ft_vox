@@ -20,12 +20,19 @@ void Sandbox::place_ent(Engine* eng)
 //    Entity*  foreLeg2 = new Entity();
 //    Model* mod = new Model();
 //    Model* lightMod = new Model();
+	Chunk::noise =FastNoiseLite();
 	Chunk::noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 	Chunk::noise.SetFractalType(FastNoiseLite::FractalType_FBm);
-	Chunk::noise.SetFractalGain(0.1);
+
+	Chunk::noise.SetFractalGain(0.003);
 	Chunk::noise.SetFractalOctaves(4);
-	Chunk::noise.SetFrequency(0.004);
-	Chunk::noise.SetSeed(12213);
+	Chunk::noise.SetCellularJitter(10.07);
+//	Chunk::noise.SetFractalWeightedStrength(0.3);
+//	Chunk::noise.SetFractalPingPongStrength(0.3);
+
+
+	Chunk::noise.SetFrequency(0.025f);
+//	Chunk::noise.SetSeed(12213);
 //	Entity*  box = new Entity();
 //	Model* 	boxModel = new Model();
 ////	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
