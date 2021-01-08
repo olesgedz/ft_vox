@@ -31,6 +31,7 @@ class Chunk
 	//void glInitialize();
 	Chunk(vec3 pos);
 //	private:
+	~Chunk();
 
 
 };

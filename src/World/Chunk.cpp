@@ -13,7 +13,9 @@ void Chunk::generate()
 //	Quad(Quad::QuadType::FRONT, this,a);
 }
 
-
+Chunk::~Chunk()
+{
+}
 Chunk::Chunk(vec3 p)
 {
 	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);

@@ -16,7 +16,7 @@
 class World
 {
 	public:
-		int radius = 5;
+		int radius = 3;
 		std::unordered_map<vec3, shared_ptr<Chunk>> world;
 		Camera * player_cam;
 		glm::vec3 last_player_position = vec3(0,0,0);
@@ -33,15 +33,17 @@ class World
 
 		void UpdateWorld()
 		{
-			vec3 pos  = player_cam->Position;
+			vec3 pos  = vec3(int(player_cam->Position.x), int(player_cam->Position.y), int(player_cam->Position.z));
 			last_player_position = pos;
+			radius *= 16;
+			std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
 			vec3 pos_start = vec3(pos.x - radius, pos.y, pos.z - radius);
 			vec3 pos_finish = vec3(pos.x + radius, pos.y, pos.z + radius);
-			for (;pos_start.x < pos_finish.x; pos_start.x++)
+			for (;pos_start.x < pos_finish.x; )
 			{
-				for (pos_start.z = pos.z - radius ;pos_start.z < pos_finish.z; pos_start.z++) // Z
+				for (pos_start.z = pos.z - radius ;pos_start.z < pos_finish.z; ) // Z
 				{
-					world.insert(std::pair<vec3, std::shared_ptr<Chunk>>(pos_start, new Chunk(pos_start)));
+					world.insert(std::pair<vec3, std::shared_ptr<Chunk>>(pos_start, new Chunk(vec3(pos_start.x, 0, pos_start.z))));
 					shared_ptr<Chunk> c = world[pos_start];
 					c->generate();
 					c->model.meshes[0].bind_shader(shader);
@@ -53,7 +55,9 @@ class World
 //					c->model.meshes[0].bind_texture();
 					c->model.meshes[0].texture = texture;
 					c->model.meshes[0].upload();
+					pos_start.z+=16;
 				}
+				pos_start.x+=16;
 
 			}
 		}

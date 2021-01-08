@@ -52,6 +52,9 @@ public:
 			glDeleteBuffers(1, &vbo_normals);
 		if (ibo_elements != 0)
 			glDeleteBuffers(1, &ibo_elements);
+	 	vertices.clear();
+		normals.clear();
+		uvs.clear();
 	}
 	/**
 	* Draw the object

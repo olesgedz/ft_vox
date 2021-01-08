@@ -56,12 +56,44 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 
 //	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
 	static int j = 0;
-
-	if (j == 0)
+	World::instance()->player_cam = cam;
+	if (j == 0 || (glm::length(World::instance()->last_player_position - cam->Position) > 16))
 	{
 		j = 1;
-		World::instance()->player_cam = cam; //std::make_shared<Camera> cam);
+		//std::make_shared<Camera> cam);
 
+		cout << "models   " << eng->models.size() << endl;
+//		for(auto m : eng->models[0]->meshes)
+//		{
+//			m.vertices.clear();
+//			cout << "Length   " << m.vertices.size() << endl;
+//		}
+//		for(auto c : World::instance()->world)
+//		{
+//			c.second.reset();
+//			World::instance()->world.erase(c.first );
+//		}
+
+
+		int length = scene->ents.size();
+		for (int i = 0; i < length; i++)
+		{
+			Entity *ent = scene->ents[i];
+
+			Model *mod = ent->mod;
+			Mesh *mesh1 = &mod->meshes[0];
+			mesh1->vertices.clear();
+			mesh1->elements.clear();
+		}
+
+		eng->models.clear();
+		scene->ents.clear();
+		int lf = scene->ents.size();
+		cout << "Length " << lf << endl;
+//		for (auto &[key, value] : World::instance()->world)
+//		{
+//		}
+		World::instance()->world.clear();
 		World::instance()->UpdateWorld();
 		for (auto &[key, value] : World::instance()->world)
 		{
@@ -71,6 +103,7 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 		}
 	}
 	int length = scene->ents.size();
+	cout << "Length " << length << endl;
 	for (int i = 0; i < length; i++)
 	{
 		Entity *ent = scene->ents[i];

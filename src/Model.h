@@ -27,6 +27,7 @@ public:
 //	unsigned int	ibo;
 //	unsigned int	texture;
 //	int				shader_id;
+	~Model();
 	std::vector<Mesh> meshes;
 public:
 	//int		load_obj(const char* path, bool loadBuf);

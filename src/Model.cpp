@@ -102,3 +102,7 @@
 //	glGenerateMipmap(GL_TEXTURE_2D);
 //	stbi_image_free(text_data);
 //}
+Model::~Model()
+{
+	meshes.clear();
+}
