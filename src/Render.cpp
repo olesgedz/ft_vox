@@ -60,21 +60,6 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 	if (j == 0 || (glm::length(World::instance()->last_player_position - cam->Position) > 16))
 	{
 		j = 1;
-		//std::make_shared<Camera> cam);
-
-		cout << "models   " << eng->models.size() << endl;
-//		for(auto m : eng->models[0]->meshes)
-//		{
-//			m.vertices.clear();
-//			cout << "Length   " << m.vertices.size() << endl;
-//		}
-//		for(auto c : World::instance()->world)
-//		{
-//			c.second.reset();
-//			World::instance()->world.erase(c.first );
-//		}
-
-
 		int length = scene->ents.size();
 		for (int i = 0; i < length; i++)
 		{
@@ -89,10 +74,7 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 		eng->models.clear();
 		scene->ents.clear();
 		int lf = scene->ents.size();
-		cout << "Length " << lf << endl;
-//		for (auto &[key, value] : World::instance()->world)
-//		{
-//		}
+
 		World::instance()->world.clear();
 		World::instance()->UpdateWorld();
 		for (auto &[key, value] : World::instance()->world)
@@ -103,7 +85,6 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 		}
 	}
 	int length = scene->ents.size();
-	cout << "Length " << length << endl;
 	for (int i = 0; i < length; i++)
 	{
 		Entity *ent = scene->ents[i];

@@ -32,8 +32,11 @@ class Chunk
 	Chunk(vec3 pos);
 //	private:
 	~Chunk();
-
-
+	static float fBM(float x, float z, int oct, float pers);
+	static float fBM3D(float x, float y, float z, float sm, int oct);
+	static float lerp( float a, float b, float t);
+	static float Map(float newmin, float newmax, float origmin, float origmax, float value);
+	static float inlerp(float start, float end, float current);
 };
 
 
