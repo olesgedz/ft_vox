@@ -4,7 +4,7 @@
 #include <iostream>
 #include "glm/glm.hpp"
 #include "engine.h"
-
+#include "World.h"
 void Render::init()
 {
 	projection = glm::perspective(60.0 * M_PI / 180.0, 1280.0 / 720.0, 0.1, 100.0);
@@ -51,22 +51,25 @@ void    Render::draw_child(Entity* ent, Animator *animator, Scene *scene, Camera
 //        draw_child(ent->childrens[j], animator, scene, cam, ani_model);
 }
 
-void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam)
+void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *eng)
 {
 
-	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+//	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+	static int j = 0;
 
-//		unsigned  int vbo,voa;
-//	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
-//						   vec3(0.5f, -0.5f, -1.0f), // right
-//						   vec3(0.0f,  0.5f, 0.0f) };
-//		glGenBuffers(1, &vbo);
-//		glGenVertexArrays(1, &voa);
-//		glBindVertexArray(voa);
-//		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//		glBufferData(GL_ARRAY_BUFFER, sizeof(a) * sizeof(a.data()[0]), a.data(), GL_STATIC_DRAW);
-//		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-//		glEnableVertexAttribArray(0);
+	if (j == 0)
+	{
+		j = 1;
+		World::instance()->player_cam = cam; //std::make_shared<Camera> cam);
+
+		World::instance()->UpdateWorld();
+		for (auto &[key, value] : World::instance()->world)
+		{
+			Entity *chunkE = new Entity();
+			eng->add_entity(chunkE);
+			chunkE->set_model(&value->model);
+		}
+	}
 	int length = scene->ents.size();
 	for (int i = 0; i < length; i++)
 	{
@@ -75,11 +78,11 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam)
 		Model *mod = ent->mod;
 		Mesh *mesh1 = &mod->meshes[0];
 
-		shader.use();
+		World::instance()->shader->use();
 		glm::mat4 model = glm::mat4(1.0f);
-		shader.setMat4("projMatrix", projection);
-		shader.setMat4("viewMatrix", cam->GetViewMatrix());
-		shader.setMat4("modelMatrix", model);
+		World::instance()->shader->setMat4("projMatrix", projection);
+		World::instance()->shader->setMat4("viewMatrix", cam->GetViewMatrix());
+		World::instance()->shader->setMat4("modelMatrix", model);
 		mesh1->draw();
 	}
 

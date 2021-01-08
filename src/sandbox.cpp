@@ -1,5 +1,11 @@
 #include "sandbox.h"
 #include "Chunk.h"
+#include "World.h"
+
+bool operator<(glm::vec3&& l, glm::vec3&& other) noexcept
+{
+	return 1;
+}
 void Sandbox::place_ent(Engine* eng)
 {
 //    Entity*  torso = new Entity();
@@ -17,9 +23,9 @@ void Sandbox::place_ent(Engine* eng)
 
 //	Entity*  box = new Entity();
 //	Model* 	boxModel = new Model();
-//	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
-//							vec3(0.5f, -0.5f, -1.0f), // right
-//								 vec3(0.0f,  0.5f, 0.0f) };
+////	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
+////							vec3(0.5f, -0.5f, -1.0f), // right
+////								 vec3(0.0f,  0.5f, 0.0f) };
 //	boxModel->meshes.emplace_back();
 //	Shader shader("shaders/vertex.glsl", "shaders/fragment.glsl");
 //	boxModel->meshes[0].load_obj("res/models/test.obj");
@@ -29,38 +35,36 @@ void Sandbox::place_ent(Engine* eng)
 //
 //	boxModel->meshes[0].bind_texture();
 //	boxModel->meshes[0].upload();
-////	box.,
+//////	box.,
 //	eng->add_entity(box);
 //	box->set_model(boxModel);
 
-	Entity*  box = new Entity();
-	Entity*  coin = new Entity();
-	Entity*  chunk = new Entity();
+//	Entity*  box = new Entity();
+//	Entity*  coin = new Entity();
 
-	Model* 	boxModel = new Model();
-	Chunk * c = new Chunk(vec3(0,0,0));
-	//c->generate();
-	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
-							vec3(0.5f, -0.5f, -1.0f), // right
-								 vec3(0.0f,  0.5f, 0.0f) };
-
-	Model* 	coinModel = new Model();
-	boxModel->meshes.emplace_back();
-	coinModel->meshes.emplace_back();
-
-	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
-
-	c->model.meshes[0].bind_shader(shader);
-	c->model.meshes[0].shader->use();
-	c->model.meshes[0].load_texture("resources/textures/spritesheet.png");//("resources/textures/Test.png");
-	c->model.meshes[0].bind_texture();
-	c->model.meshes[0].upload();
-
-	//	c->model.meshes[0].bind_shader(shader);
-//	c->model.meshes[0].shader->use();
-//	c->model.meshes[0].upload();
-	eng->add_entity(chunk);
-	chunk->set_model(&c->model);
+//
+//	Entity*  chunk = new Entity();
+//
+////	Model* 	boxModel = new Model();
+//	Chunk * c = new Chunk(vec3(0,0,0));
+//	c->generate();
+////	std::vector<vec3> a = {vec3(-0.5f, -0.5f, -1.0f), // left
+////							vec3(0.5f, -0.5f, -1.0f), // right
+////								 vec3(0.0f,  0.5f, 0.0f) };
+////
+////	Model* 	coinModel = new Model();
+////	boxModel->meshes.emplace_back();
+////	coinModel->meshes.emplace_back();
+//
+//	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+//
+//
+//
+//	//	c->model.meshes[0].bind_shader(shader);
+////	c->model.meshes[0].shader->use();
+////	c->model.meshes[0].upload();
+//	eng->add_entity(chunk);
+//	chunk->set_model(&c->model);
 
 
 

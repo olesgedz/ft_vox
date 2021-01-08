@@ -14,7 +14,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 using namespace std;
-class Shader
+class Shader : public std::enable_shared_from_this<Shader>
 {
 public:
 	// the program ID

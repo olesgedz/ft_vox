@@ -4,7 +4,6 @@
 
 #include "Chunk.h"
 #include "Quad.h"
-PerlinNoise Chunk::m_noise = PerlinNoise();
 FastNoiseLite Chunk::noise = FastNoiseLite();
 
 void Chunk::generate()
@@ -24,7 +23,6 @@ Chunk::Chunk(vec3 p)
 
 	pos = p;
 	c = this;
-    m_noise.setScale(Chunk::vertical);
 	matrix = allocateChunk();
 	generateTerrain();
 	for(int x = 0; x < horizontal; x++)
@@ -40,9 +38,9 @@ Chunk::Chunk(vec3 p)
 					matrix[x][y][z] = BlockType::DIRT;
 				if (y < heightMap [x] [z] / 2 + 1)
 					matrix[x][y][z] = BlockType::STONE;
-				cout << (int)heightMap [x][z] << " ";
+				//cout << (int)heightMap [x][z] << " ";
 			}
-			cout << endl;
+			//cout << endl;
 		}
 	}
 	setNeighbors();
@@ -132,7 +130,6 @@ void Chunk::setNeighbors()
 void Chunk::generateTerrain()
 {
 
-	 m_noise.setScale(Chunk::horizontal * 32);
 	heightMap = new int*[Chunk::horizontal];
 	for (int x = 0; x < Chunk::horizontal; x++)
 	{
