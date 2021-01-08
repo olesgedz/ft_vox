@@ -35,13 +35,14 @@ class World
 		{
 			vec3 pos  = vec3(int(player_cam->Position.x), int(player_cam->Position.y), int(player_cam->Position.z));
 			last_player_position = pos;
-			radius *= 16;
+			int r_c = radius * 16;
 			std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
-			vec3 pos_start = vec3(pos.x - radius, pos.y, pos.z - radius);
-			vec3 pos_finish = vec3(pos.x + radius, pos.y, pos.z + radius);
+			vec3 pos_start = vec3(pos.x - r_c, pos.y, pos.z - r_c);
+			vec3 pos_finish = vec3(pos.x + r_c, pos.y, pos.z + r_c);
 			for (;pos_start.x < pos_finish.x; )
 			{
-				for (pos_start.z = pos.z - radius ;pos_start.z < pos_finish.z; ) // Z
+				pos_start.z = pos.z - r_c;
+				for ( ;pos_start.z < pos_finish.z; ) // Z
 				{
 					world.insert(std::pair<vec3, std::shared_ptr<Chunk>>(pos_start, new Chunk(vec3(pos_start.x, 0, pos_start.z))));
 					shared_ptr<Chunk> c = world[pos_start];
