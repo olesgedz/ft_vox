@@ -16,7 +16,7 @@
 class World
 {
 	public:
-		int radius = 1;
+		int radius = 5;
 		std::unordered_map<vec3, shared_ptr<Chunk>> world;
 		Camera * player_cam;
 		glm::vec3 last_player_position = vec3(0,0,0);
@@ -34,6 +34,7 @@ class World
 		void UpdateWorld()
 		{
 			vec3 pos  = player_cam->Position;
+			last_player_position = pos;
 			vec3 pos_start = vec3(pos.x - radius, pos.y, pos.z - radius);
 			vec3 pos_finish = vec3(pos.x + radius, pos.y, pos.z + radius);
 			for (;pos_start.x < pos_finish.x; pos_start.x++)
@@ -45,10 +46,12 @@ class World
 					c->generate();
 					c->model.meshes[0].bind_shader(shader);
 					c->model.meshes[0].shader->use();
-					c->model.meshes[0].shader->setInt("texture1", texture);
 
-					c->model.meshes[0].load_texture("resources/textures/spritesheet.png");//("resources/textures/Test.png");
-					c->model.meshes[0].bind_texture();
+
+
+					//c->model.meshes[0].load_texture("resources/textures/spritesheet.png");//("resources/textures/Test.png");
+//					c->model.meshes[0].bind_texture();
+					c->model.meshes[0].texture = texture;
 					c->model.meshes[0].upload();
 				}
 
@@ -65,13 +68,13 @@ private:
 		// set texture filtering parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		int width, height, nrChannels;
+//		int width, height, nrChannels;
 		string s;
 		s.append("./");
 		s.append(filename);
 		stbi_set_flip_vertically_on_load(true);
 		cout <<filename <<endl;
-		unsigned char *data = stbi_load(s.c_str(), &width, &height, &nrChannels, 0);
+		data = stbi_load(s.c_str(), &width, &height, &nrChannels, 0);
 		if (data)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -82,11 +85,13 @@ private:
 			std::cout << "Failed to load texture" << std::endl;
 		}
 
-		stbi_image_free(data);
+		//stbi_image_free(data);
 
 		}
 	GLuint texture;
 	string filename = "resources/textures/spritesheet.png";
+	int width, height, nrChannels;
+	unsigned char *data ;
 };
 
 #endif //FT_VOX_WORLD_H
