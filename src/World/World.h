@@ -16,7 +16,7 @@
 class World
 {
 	public:
-		int radius = 3;
+		int radius = 5;
 		std::unordered_map<vec3, shared_ptr<Chunk>> world;
 		Camera * player_cam;
 		glm::vec3 last_player_position = vec3(0,0,0);

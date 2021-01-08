@@ -57,7 +57,7 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 //	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
 	static int j = 0;
 	World::instance()->player_cam = cam;
-	if (j == 0 || (glm::length(World::instance()->last_player_position - cam->Position) > 16))
+	if (j == 0 || (glm::length(World::instance()->last_player_position - cam->Position) > 32))
 	{
 		j = 1;
 		//std::make_shared<Camera> cam);

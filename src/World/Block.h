@@ -19,6 +19,7 @@ enum class BlockType
 	DIRT,
 	SAND,
 	STONE,
+	WATER,
 	AIR
 };
 class Block

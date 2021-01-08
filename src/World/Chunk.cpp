@@ -145,7 +145,7 @@ void Chunk::generateTerrain()
 //			if (n > 1)
 //				n = 1;
 			//heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;
-			heightMap [x][z] =  (1 - noise.GetNoise(20.03 * ((float)(pos.x + x)) + 300000,20.007 * ((float)(pos.z + z) + 300000))) * Chunk::vertical / 2.0f;
+			heightMap [x][z] =  abs( 1 - noise.GetNoise( 2.3f *((float)(pos.x + x)) + 30310,  2.3f * ((float)(pos.z + z) + 3130))) * Chunk::vertical / 2.0f;
 			//heightMap [x][z] = int(heightMap [x] [z]) - 1;
 		}
 	}
