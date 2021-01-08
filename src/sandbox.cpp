@@ -21,10 +21,10 @@ void Sandbox::place_ent(Engine* eng)
 //    Model* mod = new Model();
 //    Model* lightMod = new Model();
 	Chunk::noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
-//	Chunk::noise.SetFractalType(FastNoiseLite::FractalType_FBm);
-//	Chunk::noise.SetFractalGain(0.7);
-//	Chunk::noise.SetFractalOctaves(4);
-	Chunk::noise.SetFrequency(0.04);
+	Chunk::noise.SetFractalType(FastNoiseLite::FractalType_FBm);
+	Chunk::noise.SetFractalGain(0.1);
+	Chunk::noise.SetFractalOctaves(4);
+	Chunk::noise.SetFrequency(0.004);
 	Chunk::noise.SetSeed(12213);
 //	Entity*  box = new Entity();
 //	Model* 	boxModel = new Model();

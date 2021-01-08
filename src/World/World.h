@@ -16,7 +16,7 @@
 class World
 {
 	public:
-		int radius = 4;
+		int radius = 3;
 		std::unordered_map<vec3, shared_ptr<Chunk>> world;
 		Camera * player_cam;
 		glm::vec3 last_player_position = vec3(0,0,0);
@@ -35,13 +35,13 @@ class World
 		{
 			vec3 pos  = vec3(int(player_cam->Position.x), int(player_cam->Position.y), int(player_cam->Position.z));
 			last_player_position = pos;
-			int radius_chunk = radius * 16;
+			int r_c = radius * 16;
 			std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
-			vec3 pos_start = vec3(pos.x - radius_chunk, pos.y, pos.z - radius_chunk);
-			vec3 pos_finish = vec3(pos.x + radius_chunk, pos.y, pos.z + radius_chunk);
+			vec3 pos_start = vec3(pos.x - r_c, pos.y, pos.z - r_c);
+			vec3 pos_finish = vec3(pos.x + r_c, pos.y, pos.z + r_c);
 			for (;pos_start.x < pos_finish.x; )
 			{
-				pos_start.z = pos.z - radius_chunk;
+				pos_start.z = pos.z - r_c;
 				for ( ;pos_start.z < pos_finish.z; ) // Z
 				{
 					world.insert(std::pair<vec3, std::shared_ptr<Chunk>>(pos_start, new Chunk(vec3(pos_start.x, 0, pos_start.z))));
