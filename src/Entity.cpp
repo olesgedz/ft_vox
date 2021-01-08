@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "Entity.h"
 #include "glm/glm.hpp"
 int  Entity::idNumber = 0;
 Entity::Entity()

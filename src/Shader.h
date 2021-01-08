@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <memory>
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
