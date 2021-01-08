@@ -22,11 +22,11 @@ void Sandbox::place_ent(Engine* eng)
 //    Model* lightMod = new Model();
 	Chunk::noise =FastNoiseLite();
 	Chunk::noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
-	Chunk::noise.SetFractalType(FastNoiseLite::FractalType_FBm);
+//	Chunk::noise.SetFractalType(FastNoiseLite::FractalType_FBm);
 
-	Chunk::noise.SetFractalGain(0.003);
-	Chunk::noise.SetFractalOctaves(4);
-	Chunk::noise.SetCellularJitter(10.07);
+//	Chunk::noise.SetFractalGain(0.003);
+//	Chunk::noise.SetFractalOctaves(4);
+//	Chunk::noise.SetCellularJitter(10.07);
 //	Chunk::noise.SetFractalWeightedStrength(0.3);
 //	Chunk::noise.SetFractalPingPongStrength(0.3);
 

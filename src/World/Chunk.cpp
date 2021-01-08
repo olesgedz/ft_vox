@@ -133,24 +133,29 @@ void Chunk::setNeighbors()
 void Chunk::generateTerrain()
 {
 
-	heightMap = new int*[Chunk::horizontal];
+	heightMap = new int *[Chunk::horizontal];
 	for (int x = 0; x < Chunk::horizontal; x++)
 	{
-		heightMap[x] = new int [Chunk::vertical];
+		heightMap[x] = new int[Chunk::vertical];
 	}
-	for(int x = 0; x < Chunk::horizontal; x++)
+	for (int x = 0; x < Chunk::horizontal; x++)
 	{
-		for(int z = 0; z < Chunk::horizontal; z++)
+		for (int z = 0; z < Chunk::horizontal; z++)
 		{
 			//float n = m_noise.fracNoise3D(20.03 * (pos.x + x), 0 ,  20.007 * (pos.z + z));
 //			if (n > 1)
 //				n = 1;
 			//heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;
-			heightMap [x][z] =  abs( 1 - noise.GetNoise( 2.3f *((float)(pos.x + x)) + 30310,  2.3f * ((float)(pos.z + z) + 3130))) * Chunk::vertical / 2.0f;
-			//heightMap [x][z] = int(heightMap [x] [z]) - 1;
+			float n1 = 1 * noise.GetNoise(1.0f * ((float) (pos.x + x)) + 30310, 1.0f * ((float) (pos.z + z) + 3130));
+			float n2 = 0.5 * noise.GetNoise(3.3f * ((float) (pos.x + x)) + 30310, 3.3f * ((float) (pos.z + z) + 3130));
+			float n3 = 0.25 * noise.GetNoise(4.3f * ((float) (pos.x + x)) + 30310, 4.3f * ((float) (pos.z + z) + 3130));
+
+
+			heightMap[x][z] = abs(1 - (n1 + n2 + n3 / 3.0f)) * vertical / 2.f;
+//			heightMap [x][z] = int(heightMap [x] [z]) - 1;
+//		}
 		}
 	}
-}
 
 
 
@@ -286,4 +291,4 @@ void Chunk::generateTerrain()
 //	else
 //		return -1.0f;
 //}
-
+}
