@@ -67,11 +67,14 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 
 			Model *mod = ent->mod;
 			Mesh *mesh1 = &mod->meshes[0];
+			mesh1->clear();
 			mesh1->vertices.clear();
 			mesh1->elements.clear();
 		}
 
 		eng->models.clear();
+		for(auto ent:scene->ents)
+			delete ent;
 		scene->ents.clear();
 		int lf = scene->ents.size();
 

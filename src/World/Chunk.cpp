@@ -51,7 +51,20 @@ Chunk::Chunk(vec3 p)
 //	bool neighbors[6] = {false};
 //	vec3 a = vec3(0,0,0);
 //	setBlock(BlockType::GROUND, a, neighbors);
+	for (int x = 0; x < Chunk::horizontal; x++)
+	{
+		for (int y = 0; y < Chunk::vertical; y++)
+			delete matrix[x][y];
+		delete matrix[x];
+	}
 	delete [] matrix;
+
+
+	for (int x = 0; x < Chunk::horizontal; x++)
+	{
+		delete heightMap[x];//= new int[Chunk::depth];
+	}
+
 	delete [] heightMap;
 }
 
@@ -68,9 +81,9 @@ BlockType *** Chunk::allocateChunk()
 		{
 
 			newMatrix[x][y] = new BlockType[Chunk::depth];
-//			for (int z = 0; z < Chunk::depth; z++)
-//				cout << (int)newMatrix[x][y][z] << " " << x << endl;
-
+////			for (int z = 0; z < Chunk::depth; z++)
+////				cout << (int)newMatrix[x][y][z] << " " << x << endl;
+//
 		}
 	}
 
@@ -136,11 +149,11 @@ void Chunk::generateTerrain()
 	heightMap = new int *[Chunk::horizontal];
 	for (int x = 0; x < Chunk::horizontal; x++)
 	{
-		heightMap[x] = new int[Chunk::vertical];
+		heightMap[x] = new int[Chunk::depth];
 	}
 	for (int x = 0; x < Chunk::horizontal; x++)
 	{
-		for (int z = 0; z < Chunk::horizontal; z++)
+		for (int z = 0; z < Chunk::depth; z++)
 		{
 			//float n = m_noise.fracNoise3D(20.03 * (pos.x + x), 0 ,  20.007 * (pos.z + z));
 //			if (n > 1)

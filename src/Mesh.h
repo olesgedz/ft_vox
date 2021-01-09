@@ -73,7 +73,22 @@ public:
 	 * buffers
 	 */
 	void upload();
-
+	void clear()
+	{
+		if (vbo_vertices != 0)
+			glDeleteBuffers(1, &vbo_vertices);
+		if (vbo_normals != 0)
+			glDeleteBuffers(1, &vbo_normals);
+		if (vbo_uvs != 0)
+			glDeleteBuffers(1, &vbo_uvs);
+		if (ebo != 0)
+			glDeleteBuffers(1, &ebo);
+		vertices.clear();
+		normals.clear();
+		uvs.clear();
+		elements.clear();
+		glDeleteVertexArrays(2,  &this->voa);
+	}
 
 	/**
 	 * Draw object bounding box

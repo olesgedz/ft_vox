@@ -8,6 +8,7 @@ project(${PROJECT_NAME})
 add_compile_options(
     # -Werror
 	-g
+    -O3
 #    -Wall
 #        -Wextra
     # -Wpedantic

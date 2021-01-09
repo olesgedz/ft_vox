@@ -159,6 +159,7 @@ void Mesh::upload()
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(0);
 //		glCheckError();
+
 	}
 
 	if (normals.size() > 0)
@@ -186,7 +187,7 @@ void Mesh::upload()
 	{
 		textureExists = 0;
 	}
-
+//
 	if (this->vertexIndices.size() > 0)
 	{
 		glGenBuffers(1, &this->ebo);
@@ -196,25 +197,14 @@ void Mesh::upload()
 	}
 
 
-	// if (this->normals.size() > 0) {
-	// 	glGenBuffers(1, &this->vbo_normals);
-	// 	glBindBuffer(GL_ARRAY_BUFFER, this->vbo_normals);
-	// 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(normals.data()[0]),
-	// 	normals.data(), GL_STATIC_DRAW);
-	// 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	// 	glEnableVertexAttribArray(1);
-	// 	glCheckError();
-	// }
-	// if (this->normalIndices.size() > 0)
-	// {
-	// 	glGenBuffers(1, &this->ebo);
-	// 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
-	// 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->vertexIndices.size() * sizeof(this->vertexIndices[0]),
-	// 	this->vertexIndices.data(), GL_STATIC_DRAW);
-	// }
-
-
-
+	 if (this->normals.size() > 0) {
+	 	glGenBuffers(1, &this->vbo_normals);
+	 	glBindBuffer(GL_ARRAY_BUFFER, this->vbo_normals);
+	 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(normals.data()[0]),
+	 	normals.data(), GL_STATIC_DRAW);
+	 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	 	glEnableVertexAttribArray(1);
+	 }
 }
 
 /**
@@ -271,9 +261,7 @@ void Mesh::draw()
 	{
 		glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
 	}
-
 	glBindVertexArray(0); //  // Make sure the VAO is not changed from the outside
-
 }
 
 /**

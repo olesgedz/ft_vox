@@ -14,9 +14,9 @@ class Chunk
 	public:
 		Model model;
 		void generate();
-	static constexpr int horizontal = 16;
-	static constexpr int vertical = 16;
-	const int depth = 16;
+	static constexpr int horizontal = 32;
+	static constexpr int vertical = 32;
+	const int depth = 32;
 //	static PerlinNoise m_noise;
 	static FastNoiseLite noise;
 	vec3 pos;
