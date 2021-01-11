@@ -17,7 +17,13 @@ class World
 {
 	public:
 		int radius = 7;
-		std::unordered_map<vec3, shared_ptr<Chunk>> world;
+		int octaves = 0;
+		float scale1 = 0.2f;
+		float scale2 = 0.267f;
+		float scale3 = 0.130f;
+		int seed = 1337;
+		bool need_render = true;
+	std::unordered_map<vec3, shared_ptr<Chunk>> world;
 		Camera * player_cam;
 		glm::vec3 last_player_position = vec3(0,0,0);
 		Shader * shader;
@@ -29,7 +35,10 @@ class World
 			return s;
 		}
 
-
+		bool NeedRender()
+		{
+			return(need_render);
+		}
 
 		void UpdateWorld()
 		{

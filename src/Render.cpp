@@ -55,11 +55,10 @@ void Render::draw_scene(Animator *animator, Scene *scene, Camera *cam, Engine *e
 {
 
 //	Shader shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
-	static int j = 0;
 	World::instance()->player_cam = cam;
-	if (j == 0 || (glm::length(World::instance()->last_player_position - cam->Position) > 32))
+	if (World::instance()->NeedRender() || (glm::length(World::instance()->last_player_position - cam->Position) > (32)))
 	{
-		j = 1;
+		World::instance()->need_render = false;
 		int length = scene->ents.size();
 		for (int i = 0; i < length; i++)
 		{

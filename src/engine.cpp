@@ -5,6 +5,7 @@
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
+#include "World.h"
 
 double Engine::delta_time = 0.0f;
 Engine::~Engine()
@@ -124,11 +125,16 @@ void Engine::run_engine()
         ImGui::Text("Use buttons to change animation"); // Display some text (you can use a format strings too)
         if (ImGui::Button("Idle"))
             std::cout << "Idle anim" << std::endl;
-        ImGui::Button("Run");
-        ImGui::Button("Jump");
+        shared_ptr<World> world = World::instance();
+        World::instance()->need_render = ImGui::Button("Rerender");
+
+		ImGui::SliderInt("Render distance ",&World::instance()->radius,0, 12);
+		ImGui::SliderFloat("Render 1 ",&world->scale1,0, 2);
+		ImGui::SliderFloat("Render 2 ",&world->scale2,0, 2);
+		ImGui::SliderFloat("Render 3 ",&world->scale3,0, 2);
+		ImGui::InputInt("Seed", &world->seed);
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		if(close_eng)

@@ -5,6 +5,7 @@
 #include "Chunk.h"
 #include "Quad.h"
 #include <cmath>
+#include "World.h"
 FastNoiseLite Chunk::noise = FastNoiseLite();
 
 void Chunk::generate()
@@ -23,7 +24,7 @@ Chunk::Chunk(vec3 p)
 	model.meshes.emplace_back();
 //	Shader * shader = new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
 
-
+	noise.SetSeed(World::instance()->seed);
 	pos = p;
 	c = this;
 	matrix = allocateChunk();
@@ -43,7 +44,15 @@ Chunk::Chunk(vec3 p)
 					matrix[x][y][z] = BlockType::DIRT;
 				if (y < heightMap [x] [z] / 2 + 1)
 				{
-					matrix[x][y][z] = BlockType::STONE;
+					if (-0.5f < noise.GetNoise(5.3f * ((float) (pos.x + x)) + 30310,2.3f * ((float) (pos.y + y) + 3130),\
+					4.3f * ((float) (pos.z + z) + 3130)))
+					{
+						matrix[x][y][z] = BlockType::AIR;
+					}
+					else
+					{
+						matrix[x][y][z] = BlockType::STONE;
+					}
 				}
 				if ((y >= heightMap [x] [z] + 1) && matrix[x][y - 1][z] == BlockType::STONE)
 				{
@@ -51,7 +60,8 @@ Chunk::Chunk(vec3 p)
 				}
 				if (y > 10 && matrix[x][y - 1][z] == BlockType::GROUND)
 				{
-					if ( 0.9f < noise.GetNoise(5.3f * ((float) (pos.x + x)) + 30310,5.3f * ((float) (pos.y + y) + 3130)))
+					if ( 0.4f < noise.GetNoise(5.3f * ((float) (pos.x + x)) + 30310,2.3f * ((float) (pos.y + y) + 3130),\
+					4.3f * ((float) (pos.z + z) + 3130)))
 						matrix[x][y][z] = BlockType::FLOWER;
 				}
 
@@ -159,7 +169,7 @@ void Chunk::setNeighbors()
 
 void Chunk::generateTerrain()
 {
-
+	shared_ptr<World> world = World::instance();
 	heightMap = new int *[Chunk::horizontal];
 	for (int x = 0; x < Chunk::horizontal; x++)
 	{
@@ -173,13 +183,10 @@ void Chunk::generateTerrain()
 //			if (n > 1)
 //				n = 1;
 			//heightMap [x][z] = int((n + 1) * Chunk::vertical) / 2;
-			float n1 = 1 * noise.GetNoise(0.3f * ((float) (pos.x + x)) + 30310, 0.3f * ((float) (pos.z + z) + 3130));
-			float n2 = 0.2 * noise.GetNoise(2.3f * ((float) (pos.x + x)) + 30310, 2.3f * ((float) (pos.z + z) + 3130));
-			float n3 = 0.45 * noise.GetNoise(5.3f * ((float) (pos.x + x)) + 30310, 5.3f * ((float) (pos.z + z) + 3130));
-
-
-			heightMap[x][z] = abs(  (n1 + n2 + n3 / 3.0f)) * vertical * 1.5 ;
-//			heightMap [x][z] = int(heightMap [x] [z]) - 1;
+			float n1 = world.get()->scale1 * noise.GetNoise(0.3f * ((float) (pos.x + x)) + 30310, 0.3f * ((float) (pos.z + z) + 3130));
+			float n2 = world.get()->scale2 * noise.GetNoise(2.3f * ((float) (pos.x + x)) + 30310, 2.3f * ((float) (pos.z + z) + 3130));
+			float n3 = world.get()->scale3 * noise.GetNoise(5.3f * ((float) (pos.x + x)) + 30310, 5.3f * ((float) (pos.z + z) + 3130));
+			heightMap[x][z] = abs(0.4 -  (n1 + n2 + n3 / 3.0f)) * vertical * 1.5 ;
 //		}
 		}
 	}
