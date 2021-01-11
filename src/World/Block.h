@@ -20,6 +20,7 @@ enum class BlockType
 	SAND,
 	STONE,
 	WATER,
+	FLOWER,
 	AIR
 };
 class Block

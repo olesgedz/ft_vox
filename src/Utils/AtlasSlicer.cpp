@@ -35,5 +35,9 @@ const glm::vec2 AtlasSlicer::uv [] =
 
 				glm::vec2 (11, 12), glm::vec2 (11, 12), // L, R
 				glm::vec2 (11, 12), glm::vec2 (11, 12),   // Bottom, T       //WATER
-				glm::vec2 (11, 12), glm::vec2 (11, 12)   // B, F
+				glm::vec2 (11, 12), glm::vec2 (11, 12),   // B, F
+
+				glm::vec2 (7, 22), glm::vec2 (7, 22),  // L, R
+				glm::vec2 (7, 22), glm::vec2 (7, 22),   // Bottom, Top       //Flowe
+				glm::vec2 (7, 22), glm::vec2 (7, 22)  // B, F
 		};
