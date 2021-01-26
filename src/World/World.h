@@ -73,7 +73,7 @@ class World
 		}
 private:
 	World() {
-		shader =  new Shader("shaders/SimpleVertex.glsl", "shaders/SimpleFragment.glsl");
+		shader =  new Shader("../shaders/SimpleVertex.glsl", "../shaders/SimpleFragment.glsl");
 		shader->use();
 		glGenTextures(1, &this->texture);
 		glBindTexture(GL_TEXTURE_2D, this->texture);
@@ -103,7 +103,7 @@ private:
 
 		}
 	GLuint texture;
-	string filename = "resources/textures/spritesheet.png";
+	string filename = "../resources/textures/spritesheet.png";
 	int width, height, nrChannels;
 	unsigned char *data ;
 };
