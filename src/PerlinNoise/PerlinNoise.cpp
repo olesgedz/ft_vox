@@ -1,4 +1,5 @@
 #include "PerlinNoise.h"
+#include <numeric>
 
 vec3 PerlinNoise::grad3 [] = {{1,1,0},{-1,1,0},{1,-1,0},{-1,-1,0},
                               {1,0,1},{-1,0,1},{1,0,-1},{-1,0,-1},

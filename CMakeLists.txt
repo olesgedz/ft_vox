@@ -7,8 +7,8 @@ set(PROJECT_NAME ft_vox)
 project(${PROJECT_NAME})
 add_compile_options(
     # -Werror
-	-g
-    -O3
+#	-g
+#    -O3
 #    -Wall
 #        -Wextra
     # -Wpedantic

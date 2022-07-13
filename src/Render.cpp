@@ -1,6 +1,8 @@
 #include "Render.h"
 #include "glad.h"
 #include <string>
+#define _USE_MATH_DEFINES // for C++
+#include <math.h>
 #include <iostream>
 #include "glm/glm.hpp"
 #include "engine.h"
